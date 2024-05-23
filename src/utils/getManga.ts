@@ -1,10 +1,11 @@
 'use server'
 
-import { Data } from "@/types/anime"
+import { MediaForHome } from "@/types/media"
 
 
 
-export async function getManga(page?: string, search?: string): Promise<Data> {
+
+export async function getManga(page?: string, search?: string): Promise<MediaForHome> {
 
   const query = `
   query (

@@ -2,7 +2,6 @@
 
 import { Input } from "@/components/ui/input"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
-import { useState } from "react"
 
 export function NavSearch() {
   const searchParams = useSearchParams()
@@ -21,8 +20,10 @@ export function NavSearch() {
   }
 
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
+    <div className="w-62 grid max-w-sm items-center gap-1.5">
+     
       <Input
+        className="border-g.warm-200 text-text-secondary-light dark:text-text-primary-dark bg-g.warm-25 dark:border-g.warm-800 dark:bg-g.warm-900 placeholder:text-g.warm-400 dark:placeholder:text-g.warm-600"
         onChange={(e) => handleSearch(e.target.value)}
         placeholder="Search media"
         id="search"

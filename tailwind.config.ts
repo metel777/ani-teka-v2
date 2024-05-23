@@ -35,30 +35,31 @@ const config = {
         "2xl": "0px 24px 48px -12px rgba(16, 24, 40, 0.18)",
         "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.14)",
         glance: "inset 0 1px rgba(255, 255, 255, 1)",
+        "glance-authkit": "inset 0 1px 1px 0 rgba(255, 237, 223, 0.2), inset 0 24px 48px 0 rgba(245, 212, 168, 0.06), inset 0 0 0 1px rgba(247, 221, 186, 0.12)"
       },
       /* on lighter bg color -700, on darker(starts from 400) -white  */
 
       colors: {
         'text': {
-          "primary-light": "#101828",
-          "primary-dark": "#f5f5f6",
-          "secondary-light": "#475467",
-          "secondary-dark": "#85888e",
+          "primary-light": "#44403c",
+          "primary-dark": "#d7d3d0",
+          "secondary-light": "#79716b",
+          "secondary-dark": "#79716b",
           // "text": "#color",
           // "text": "#color",
           // "text": "#color",
         },
         "bg": {
           "primary-light": "white",
-          "primary-dark": "#0c111d",
-          "secondary-light": "#eaecf0",
-          "secondary-dark": "#1f242f",
+          "primary-dark": "#171412",
+          "secondary-light": "#e7e5e4",
+          "secondary-dark": "#292524",
           "tertiary-light": "#f2f4f7",
-          "tertiary-dark": "#161b26"
+          "tertiary-dark": "#1c1917"
         },
         "b": {
           "primary-light": "#color",
-          "primary-dark": "#1f242f",
+          "primary-dark": "#44403c",
           "secondary-light": "#color",
           "secondary-dark": "#color",
           "tertiary-light": "#color",
@@ -72,7 +73,7 @@ const config = {
           "tertiary-dark": "#color"
         },
         "header": {
-          "bg": "#101828",
+          "bg": "#292524",
           "primary-dark": "#color",
           "secondary-light": "#color",
           "secondary-dark": "#color",
@@ -80,7 +81,20 @@ const config = {
           "tertiary-dark": "#color"
         },
         
-
+        "g.warm": {
+          25: "#fdfdfc",
+          50: "#fafaf9",
+          100: "#f5f5f4",
+          200: "#e7e5e4",
+          300: "#d7d3d0",
+          400: "#a8a29d",
+          500: "#79716b",
+          600: "#57534e",
+          700: "#44403c",
+          800: "#292524",
+          900: "#1c1917",
+          950: "#171412",
+        },
         "g.light": {
           25: "#fcfcfd",
           50: "#f9fafb",
@@ -193,20 +207,7 @@ const config = {
           900: "#141414",
           950: "#0f0f0f",
         },
-        "g.warm": {
-          25: "#fdfdfc",
-          50: "#fafaf9",
-          100: "#f5f5f4",
-          200: "#e7e5e4",
-          300: "#d7d3d0",
-          400: "#a8a29d",
-          500: "#79716b",
-          600: "#57534e",
-          700: "#44403c",
-          800: "#292524",
-          900: "#1c1917",
-          950: "#171412",
-        },
+       
 
         moss: {
           25: "#fafdf7",
@@ -222,10 +223,24 @@ const config = {
           900: "#2b4212",
           950: "#1a280b",
         },
+        // "g.warm": {
+        //   25: "#fdfdfc",
+        //   50: "#fafaf9",
+        //   100: "#f5f5f4",
+        //   200: "#e7e5e4",
+        //   300: "#d7d3d0",
+        //   400: "#a8a29d",
+        //   500: "#79716b",
+        //   600: "#57534e",
+        //   700: "#44403c",
+        //   800: "#292524",
+        //   900: "#1c1917",
+        //   950: "#171412",
+        // },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "#1c1917",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",

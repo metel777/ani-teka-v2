@@ -5,5 +5,6 @@ export type Page = {
   searchParams?: {
     page?: string
     search?: string
+    order?: string
   }
 }

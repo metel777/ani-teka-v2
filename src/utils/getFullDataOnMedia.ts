@@ -1,14 +1,14 @@
 'use server'
 
-import {  SingleData } from "@/types/anime"
+import { MediaForFullDetail } from "../types/full-media"
 
 
 
-export async function getAnimeItem(id?: string): Promise<SingleData> {
+export async function getFullDataOnMedia(id?: string, mediaType?: 'MANGA' | 'ANIME'): Promise<MediaForFullDetail> {
 
   const query = `
   query (
-    $id: Int
+    $id: Int = 154587
     $sortValue: [MediaSort] = [SCORE_DESC]
     $search: String
     $seasonYear: Int
@@ -180,13 +180,23 @@ export async function getAnimeItem(id?: string): Promise<SingleData> {
         popularity
         favourites 
       }
+      GenreCollection
+       MediaTagCollection {
+      id
+      name
+      description
+      isAdult
+      isGeneralSpoiler
+    }
     }
   
 
   
   `
   const variables = {
-   id: id 
+    id,
+    type: mediaType
+    
   }
 
   const results = await fetch("https://graphql.anilist.co/", {

@@ -27,24 +27,30 @@ export default function NavigatePagination({
   const pathname = usePathname()
   const { push } = useRouter()
 
-  useEffect(() => {
-    if (!pageParams) {
-      push(`${pathname}?page=1`)
-    }
-  }, [push, pageParams])
+  // useEffect(() => {
+  //   if (!pageParams) {
+  //     push(`${pathname}?page=1`)
+  //   }
+  // }, [push, pageParams])
 
   const params = new URLSearchParams(searchParams)
-  let currentPage = Number(pageParams)
+  let currentPage = Number(pageParams) || 1
   const totalPages = Array.from({ length: pageInfo.lastPage }, (_, i) => i + 1)
   const cuttedPages = totalPages.slice(currentPage - 1, currentPage + 5)
   // PAgination
   function handleNavigateToPage(page: number) {
     let currentPage = page
+    if (!pageParams) {
+      push(`${pathname}?page=${page}`)
+    }
     params.set("page", currentPage.toString())
     push(`${pathname}?${params}`)
   }
   // Next page
   function handleNextPage() {
+    if (!pageParams) {
+          push(`${pathname}?page=2`)
+        }
     if (Number(pageParams) >= 1 && pageInfo.hasNextPage) {
       currentPage++
       params.set("page", currentPage.toString())
