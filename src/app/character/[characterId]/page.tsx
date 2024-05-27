@@ -10,10 +10,9 @@ export default async function CharactersPage({
 }) {
   const data = await getCharacter(params.characterId)
 
-  const { description, id, image, name } = data.data.Character
+  const { description, id, image, name,favourites } = data.data.Character
 
   const media = data.data.Character.media.edges
-  console.log(data.data.Character.media.edges)
 
   return (
     <main>
@@ -27,6 +26,7 @@ export default async function CharactersPage({
         />
         <section className="p-4">
           <Title1>{name.userPreferred}</Title1>
+          <p className="-mt-5 mb-5">Favourites: {favourites}</p>
           <div dangerouslySetInnerHTML={{ __html: description }}></div>
         </section>
       </section>

@@ -1,3 +1,5 @@
+
+
 'use server'
 
 import { MediaForHome } from "../types/media"
@@ -6,14 +8,14 @@ import { MediaForHome } from "../types/media"
 
 
 
-export async function getMedia(page?: string, search?: string, order?: string, genre?: string | string[], tag?: string | string[]): Promise<MediaForHome> {
+export async function getMediaForHome( search?: string): Promise<MediaForHome> {
 
   const query = `
   query (
     $id: Int
     $page: Int
-    $perPage: Int = 25
-    $sortValue: [MediaSort] = [SCORE_DESC]
+    $perPage: Int = 30
+    $sortValue: [MediaSort] = [TRENDING_DESC]
     $search: String
     $seasonYear: Int
     $genre: [String]
@@ -85,11 +87,7 @@ export async function getMedia(page?: string, search?: string, order?: string, g
   
   `
   const variables = {
-    page,
     search,
-    sortValue: order,
-    genre,
-    tag_in: tag
   }
 
   const results = await fetch("https://graphql.anilist.co/", {

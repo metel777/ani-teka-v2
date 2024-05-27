@@ -20,6 +20,7 @@ const badgeVariants = cva(
           "bg-purple-100 text-purple-600 border border-purple-200 dark:bg-purple-950 dark:text-purple-500 dark:border-purple-800 ",
         announce:
           "bg-sky-100 text-sky-600 border border-sky-200 dark:bg-sky-950 dark:text-sky-600 dark:border-sky-800 ",
+        genresCount: 'bg-indigo-300 text-indigo-800 px-2'
       },
     },
     defaultVariants: {

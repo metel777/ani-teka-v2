@@ -21,7 +21,9 @@ export default function Header() {
   'use client'
 
   const path = usePathname()
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  // const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = false
+
 
   return (
     <div className="z-999 relative  bg-header-bg text-text-secondary-light ">

@@ -49,8 +49,8 @@ export default function NavigatePagination({
   // Next page
   function handleNextPage() {
     if (!pageParams) {
-          push(`${pathname}?page=2`)
-        }
+      push(`${pathname}?page=2`)
+    }
     if (Number(pageParams) >= 1 && pageInfo.hasNextPage) {
       currentPage++
       params.set("page", currentPage.toString())
@@ -69,39 +69,48 @@ export default function NavigatePagination({
   }
 
   return (
-      <Pagination >
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious onClick={handlePrevPage} />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href={`${pathname}?page=1`}>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem className="cursor-default">
-            <PaginationEllipsis />
-          </PaginationItem>
-          {cuttedPages.map((item, index) => (
-            <PaginationItem key={item}>
-              <PaginationLink
-                className={currentPage === item ? "border" : ""}
-                onClick={() => handleNavigateToPage(item)}
-              >
-                {item}
-              </PaginationLink>
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious onClick={handlePrevPage} />
+        </PaginationItem>
+        {currentPage >= 2 && (
+          <>
+            <PaginationItem>
+              <PaginationLink href={`${pathname}?page=1`}>1</PaginationLink>
             </PaginationItem>
-          ))}
-          <PaginationItem className="cursor-default">
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href={`${pathname}?page=${lastPage}`}>
-              {lastPage}
+
+            <PaginationItem className="cursor-default">
+              <PaginationEllipsis />
+            </PaginationItem>
+          </>
+        )}
+
+        {cuttedPages.map((item, index) => (
+          <PaginationItem key={item}>
+            <PaginationLink
+              className={currentPage === item ? "border" : ""}
+              onClick={() => handleNavigateToPage(item)}
+            >
+              {item}
             </PaginationLink>
           </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={handleNextPage} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+        ))}
+
+        <PaginationItem className="cursor-default">
+          <PaginationEllipsis />
+        </PaginationItem>
+
+        <PaginationItem>
+          <PaginationLink href={`${pathname}?page=${lastPage}`}>
+            {lastPage}
+          </PaginationLink>
+        </PaginationItem>
+
+        <PaginationItem>
+          <PaginationNext onClick={handleNextPage} />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   )
 }

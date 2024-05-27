@@ -9,8 +9,8 @@ type Props = {
 export default async function Home({ searchParams }: Props) {
 
   return (
-    <div className="mx-auto max-w-[1000px]" key={Math.random()}>
-      <Suspense fallback={<MediaLoading />}>
+    <div className="mx-auto max-w-[1000px]" >
+      <Suspense key={Math.random()} fallback={<MediaLoading />}>
         <DisplayAnime searchParams={searchParams}  />
       </Suspense>
     </div>

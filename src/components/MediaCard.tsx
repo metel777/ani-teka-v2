@@ -1,4 +1,5 @@
 "use client"
+import { motion } from "framer-motion"
 
 import Image from "next/image"
 import {
@@ -10,6 +11,7 @@ import {
   BookOpen,
   BookType,
   CalendarFold,
+  Loader,
   ScrollText,
   Text,
   Video,
@@ -17,6 +19,8 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
 import { media } from "@/types/media"
+import { Suspense, useState } from "react"
+import { Skeleton } from "./ui/skeleton"
 
 export default function MediaCard({ item }: { item: media }) {
   const { push } = useRouter()
@@ -40,23 +44,32 @@ export default function MediaCard({ item }: { item: media }) {
   } = item
   const mediaType = type?.toLowerCase()
 
+  const [imageLoading, setImageLoading] = useState(true)
+
   return (
     <HoverCard>
-      <HoverCardTrigger>
-        <main
+      <HoverCardTrigger className="w-fit">
+        <motion.main
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
           onClick={() => push(`/media/${mediaType}/${id}`)}
-          className="relative w-[160px] min-w-[210px] cursor-pointer transition-all hover:text-brand-primary  sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]"
+          className="relative w-[160px] min-w-[210px] cursor-pointer transition-all  hover:text-brand-primary sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]"
           key={id}
         >
-          <Image
-            alt={title?.english}
-            width={300}
-            height={550}
-            className="h-[300px] max-h-[300px] w-[100px] min-w-[210px] rounded-xl border border-g.warm-300 dark:border-g.warm-800 sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px] "
-            src={coverImage?.large}
-            // layout="responsive"
-            quality={100}
-          />
+          <div className="items-center justify-center  overflow-hidden rounded-xl border border-g.warm-300 dark:border-g.warm-800">
+              <Image
+                key={Math.random()}
+                alt={title?.english}
+                width={300}
+                priority
+                height={550}
+                className={`h-[300px] max-h-[300px] w-[100px] min-w-[210px]  transition-all duration-1000  sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]`}
+                src={coverImage?.large}
+                quality={50}
+                onLoad={() => setImageLoading(false)}
+              />
+          </div>
           <p className="line-clamp-1 text-sm">
             {title?.english || title?.romaji}
           </p>
@@ -79,7 +92,7 @@ export default function MediaCard({ item }: { item: media }) {
           >
             {status === "NOT_YET_RELEASED" ? "ANNOUNCE" : status}
           </Badge>
-        </main>
+        </motion.main>
       </HoverCardTrigger>
       <HoverCardContent
         className="border-g.warm-100 bg-bg-primary-light p-0 text-sm text-text-secondary-light shadow-lg dark:border-g.warm-700 dark:bg-bg-secondary-dark dark:text-text-secondary-dark"

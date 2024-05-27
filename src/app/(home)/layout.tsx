@@ -1,5 +1,6 @@
 import { getTagsAndGenres } from "@/utils/getTagsAndGenres"
 import InnerNavbar from "@/components/InnerNavbar"
+import { Suspense } from "react"
 
 export default async function layout({
   children,
@@ -11,8 +12,8 @@ export default async function layout({
   const tags = data.data.MediaTagCollection
   return (
     <div>
-      <InnerNavbar tags={tags} genres={genres} />
-      {children}
+        <InnerNavbar tags={tags} genres={genres} />
+        {children}
     </div>
   )
 }

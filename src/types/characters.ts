@@ -34,6 +34,7 @@ export type FullCharacterInfo = {
             id: number
             description: string
             image: otherCoverImage
+            favourites:number
             name: {
                 first: string
                 middle: string

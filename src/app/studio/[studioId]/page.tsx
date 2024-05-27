@@ -15,7 +15,6 @@ export default async function page({ params }: { params: Props }) {
   const { name, favourites } = data.data.Studio
   const studioData = data.data.Studio.media.nodes
 
-  console.log(studioData)
 
   return (
     <Suspense fallback={<p>Loading studio</p>}>

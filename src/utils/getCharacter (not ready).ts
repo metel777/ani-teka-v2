@@ -4,10 +4,11 @@ import { FullCharacterInfo } from "@/types/characters"
 
 export default async function getCharacter(id: any): Promise<FullCharacterInfo> {
     const query = `
-    query ($id: Int = 10990) {
+    query ($id: Int ) {
         Character(id: $id) {
           id
           description
+          favourites
           image {
             large
             medium

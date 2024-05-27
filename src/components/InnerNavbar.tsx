@@ -13,14 +13,20 @@ export default function InnerNavbar({
 }) {
   const path = usePathname()
   return (
-    <div className="mb-10  flex items-center  border-b border-g.warm-200 p-4 dark:border-g.warm-800">
-      <h1 className="p-2 text-3xl font-bold dark:text-text-primary-dark">
-        {path == "/anime" ? "Animations" : "Manga"}
-      </h1>
-      <NavSearch />
-      <GenresPick genres={genres} />
-      <TagsPick tags={tags} />
-      <OrderPick />
+    <div className="mb-10  flex items-center justify-between border-b border-g.warm-200 p-4 dark:border-g.warm-800">
+      <div className="flex">
+        <h1 className="p-2 text-3xl font-bold dark:text-text-primary-dark">
+          {path == "/anime" ? "Animations" : "Manga"}
+        </h1>
+        <NavSearch />
+      </div>
+      <div className="flex gap-2">
+        
+
+        <GenresPick genres={genres} />
+        <TagsPick tags={tags} />
+        <OrderPick />
+      </div>
     </div>
   )
 }
