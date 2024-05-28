@@ -206,7 +206,7 @@ export default async function AnimePage({ params }: Props) {
                   textAbove={item.role}
                   textBelow={item.node.name.userPreferred}
                   image={item.node.image.medium}
-                  href={`/`}
+                  href={`/person/${item.node.id}`}
                 />
               ))}
             </div>

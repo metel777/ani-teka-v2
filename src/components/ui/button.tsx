@@ -20,6 +20,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         "warm-primary":
           "bg-g.warm-100 text-g.warm-500 border-2 border-g.warm-200 dark:bg-g.warm-800 dark:border-g.warm-700 hover:bg-g.warm-200 hover:text-g.warm-800 dark:hover:text-g.warm-400 dark:hover:bg-g.warm-700",
+          "warm-secondary": 'text-xl bg-g.warm-200 hover:bg-g.warm-300 dark:bg-g.warm-800  w-full active:bg-g.warm-200 dark:active:bg-g.warm-800  hover:dark:bg-g.warm-600/40'
       },
       size: {
         default: "h-10 px-4 py-2",

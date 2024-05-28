@@ -1,5 +1,6 @@
 import MediaCard from "@/components/MediaCard"
 import NavigatePagination from "@/components/Pagination"
+import Separator from "@/components/Separator"
 import { Title1 } from "@/components/Titles"
 import { getStudio } from "@/utils/getStudio"
 import { Suspense } from "react"
@@ -23,7 +24,7 @@ export default async function page({ params }: { params: Props }) {
           <Title1>{name}</Title1>
           <p>Favourites: {favourites}</p>
         </div>
-        <hr className="border-g.warm-200 dark:border-g.warm-800" />
+       <Separator/>
         <div className="p-4">
           <div className="grid auto-rows-auto grid-cols-2 justify-items-center gap-4 gap-y-10  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
             {studioData?.map((item: any) => (

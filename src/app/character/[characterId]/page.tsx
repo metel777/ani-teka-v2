@@ -1,6 +1,6 @@
 import MediaCard from "@/components/MediaCard"
 import { Title1 } from "@/components/Titles"
-import getCharacter from "@/utils/getCharacter (not ready)"
+import getCharacter from "@/utils/getCharacter"
 import Image from "next/image"
 
 export default async function CharactersPage({

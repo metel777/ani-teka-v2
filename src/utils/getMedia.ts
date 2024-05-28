@@ -93,7 +93,8 @@ export async function getMedia(page?: string, search?: string, order?: string, g
   }
 
   const results = await fetch("https://graphql.anilist.co/", {
-    next: { revalidate: 5 },
+    next: { revalidate: 5, tags: ['media'] },
+    
     method: "POST",
     headers: {
       "Content-Type": "application/json",

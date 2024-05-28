@@ -58,17 +58,17 @@ export default function MediaCard({ item }: { item: media }) {
           key={id}
         >
           <div className="items-center justify-center  overflow-hidden rounded-xl border border-g.warm-300 dark:border-g.warm-800">
-              <Image
-                key={Math.random()}
-                alt={title?.english}
-                width={300}
-                priority
-                height={550}
-                className={`h-[300px] max-h-[300px] w-[100px] min-w-[210px]  transition-all duration-1000  sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]`}
-                src={coverImage?.large}
-                quality={50}
-                onLoad={() => setImageLoading(false)}
-              />
+            <Image
+              key={Math.random()}
+              alt={title?.english}
+              width={300}
+              priority
+              height={550}
+              className={`h-[300px] max-h-[300px] w-[100px] min-w-[210px]  transition-all duration-1000  sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]`}
+              src={coverImage?.large}
+              quality={50}
+              onLoad={() => setImageLoading(false)}
+            />
           </div>
           <p className="line-clamp-1 text-sm">
             {title?.english || title?.romaji}
@@ -116,6 +116,17 @@ function DetailItem({ children }: { children: React.ReactNode }) {
   return <div className="mb-2 flex gap-2 px-1">{children}</div>
 }
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import Separator from "./Separator"
+
 function HoverContent({
   title,
   startDate,
@@ -131,7 +142,9 @@ function HoverContent({
           <Text size={17} className="mt-1" />
           <b>{title}</b>
         </p>
-        <hr className="border-g.warm-100 py-1 dark:border-g.warm-700" />
+        <Separator/>
+        <div className="flex">
+
         <DetailItem>
           <CalendarFold size={17} className="mt-1" />
           <b>Year: </b>
@@ -142,6 +155,7 @@ function HoverContent({
           <b>Type: </b>
           {format}
         </DetailItem>
+        </div>
         {format === "MANGA" && !chapters ? (
           ""
         ) : (

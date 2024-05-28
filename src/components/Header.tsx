@@ -1,29 +1,31 @@
 "use client"
 
 import Link from "next/link"
-import { ModeToggle } from "./ModeToggle"
-import { usePathname, useRouter } from "next/navigation"
 import Image from "next/image"
-import { useMediaQuery } from "@uidotdev/usehooks"
+import { usePathname } from "next/navigation"
+
+import { ModeToggle, ModeToggleMobile } from "./ModeToggle"
+import { Menu, X } from "lucide-react"
+
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { Menu, X } from "lucide-react"
+
+import { useScreenWidth } from "@/hooks/useScreenWidth"
+import { Title1, Title2 } from "./Titles"
+import { Button } from "./ui/button"
+import Separator from "./Separator"
+import dynamic from "next/dynamic"
+
+
 
 export default function Header() {
-  'use client'
-
   const path = usePathname()
-  // const isMobile = useMediaQuery("(max-width: 768px)")
-  const isMobile = false
 
+  const { isDesktop, isMobile, isTablet } = useScreenWidth()
 
   return (
     <div className="z-999 relative  bg-header-bg text-text-secondary-light ">
@@ -63,9 +65,36 @@ export default function Header() {
               <Menu />
             </DrawerTrigger>
             <DrawerContent className="h-full">
-              <DrawerClose className="absolute right-2 top-2">
-                <X size={30} />
-              </DrawerClose>
+              {/* Top section */}
+              <section className="flex items-center justify-between p-4">
+                <h1 className="text-3xl font-semibold text-text-primary-light dark:text-text-primary-dark">
+                  Menu
+                </h1>
+                <DrawerClose>
+                  <X size={30} />
+                </DrawerClose>
+              </section>
+              <Separator />
+              {/* Main section */}
+              <main className="p-4">
+                <Title2 className="mb-5 mt-2">Navigate</Title2>
+                <section className="mb-5 grid grid-cols-2  gap-2">
+                  <Link href="/anime">
+                    <Button variant="warm-secondary">
+                      <DrawerClose>Anime</DrawerClose>
+                    </Button>
+                  </Link>
+                  <Link href="/manga">
+                    <Button variant="warm-secondary">
+                      <DrawerClose>Manga</DrawerClose>
+                    </Button>
+                  </Link>
+                </section>
+                <Title2 className="mb-5 mt-2">Theme</Title2>
+                <section>
+                  <ModeToggleMobile />
+                </section>
+              </main>
             </DrawerContent>
           </Drawer>
         )}
