@@ -8,7 +8,7 @@ export function ModeToggle() {
   const { setTheme, theme } = useTheme()
 
   return (
-    <main className="flex gap-1 rounded-full p-1 shadow-glance-authkit">
+    <main className="flex gap-1 rounded-full p-1 border border-g.warm-300 shadow-glance-authkit dark:border-transparent">
       <button
         onClick={() => setTheme("dark")}
         className={`rounded-full  p-1 hover:bg-g.warm-900 ${

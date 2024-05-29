@@ -13,14 +13,17 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-g.warm-200 bg-g.warm-100 hover:bg-g.warm-200 hover:text-g.warm-800 dark:border-g.warm-800 dark:bg-g.warm-900 dark:hover:text-g.warm-400",
+          "border border-g.warm-200 bg-g.warm-100 hover:bg-g.warm-200 hover:text-g.warm-800 dark:border-g.warm-800 dark:bg-g.warm-900 dark:hover:text-g.warm-400 ",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-g.warm-100 hover:text-g.warm-800",
         link: "text-primary underline-offset-4 hover:underline",
         "warm-primary":
           "bg-g.warm-100 text-g.warm-500 border-2 border-g.warm-200 dark:bg-g.warm-800 dark:border-g.warm-700 hover:bg-g.warm-200 hover:text-g.warm-800 dark:hover:text-g.warm-400 dark:hover:bg-g.warm-700",
-          "warm-secondary": 'text-xl bg-g.warm-200 hover:bg-g.warm-300 dark:bg-g.warm-800  w-full active:bg-g.warm-200 dark:active:bg-g.warm-800  hover:dark:bg-g.warm-600/40'
+        "warm-secondary":
+          "text-xl bg-g.warm-200 hover:bg-g.warm-300 dark:bg-g.warm-800  w-full active:bg-g.warm-200 dark:active:bg-g.warm-800  hover:dark:bg-g.warm-600/40",
+        google: "border hover:bg-g.warm-100 bg-white dark:hover:bg-g.warm-200",
+        github: "bg-black text-g.warm-100 hover:bg-black/80",
       },
       size: {
         default: "h-10 px-4 py-2",

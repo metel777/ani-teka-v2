@@ -6,7 +6,7 @@ export type Page = {
     page?: string
     search?: string
     order?: string
-    genre?:  string | string[]
-    tag?:  string | string[]
+    genre?: string | string[]
+    tag?: string | string[]
   }
 }

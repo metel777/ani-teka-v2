@@ -1,25 +1,21 @@
 import CarouselC from "@/components/Carousel"
-import MediaCard from "@/components/MediaCard"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getMediaForHome } from "@/utils/home"
-import {
-  ArrowBigUpDash,
-  BadgeAlert,
-  ExternalLink,
-  Star,
-  ThumbsUp,
-} from "lucide-react"
-import Image from "next/image"
+import { ExternalLink } from "lucide-react"
 import Link from "next/link"
+
+import { Title1 } from "@/components/Titles"
 
 export default async function Home() {
   const data = await getMediaForHome()
-
   const trending = data.data.Page.media
 
+
+
   return (
-    <main className="p-4 h-screen">
+    <main className="h-screen p-4">
+   
       <section className="grid grid-cols-1 sm:grid-cols-2">
         <section className="flex flex-col justify-between">
           <div>
@@ -51,9 +47,7 @@ export default async function Home() {
           </div>
         </section>
         <section>
-          
           <CarouselC trending={trending} />
-         
         </section>
       </section>
     </main>

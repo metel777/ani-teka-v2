@@ -1,4 +1,5 @@
 import MediaCard from "@/components/MediaCard"
+import MediaCardContainer from "@/components/MediaCardContainer"
 import NavigatePagination from "@/components/Pagination"
 import Separator from "@/components/Separator"
 import { Title1 } from "@/components/Titles"
@@ -26,11 +27,11 @@ export default async function page({ params }: { params: Props }) {
         </div>
        <Separator/>
         <div className="p-4">
-          <div className="grid auto-rows-auto grid-cols-2 justify-items-center gap-4 gap-y-10  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
+          <MediaCardContainer>
             {studioData?.map((item: any) => (
               <MediaCard item={item} key={item.id} />
             ))}
-          </div>
+          </MediaCardContainer>
           {/* <div className="mx-auto my-5 w-fit">
         <NavigatePagination pageInfo={pageInfo} />
       </div> */}

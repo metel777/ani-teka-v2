@@ -2,7 +2,7 @@ import { Page } from "@/types/searchParams"
 import MediaCard from "@/components/MediaCard"
 import NavigatePagination from "@/components/Pagination"
 import { getMedia } from "@/utils/getMedia"
-import { Suspense } from "react"
+import MediaCardContainer from "@/components/MediaCardContainer"
 
 export default async function DisplayAnime({ searchParams }: Page) {
   const page = searchParams?.page
@@ -17,11 +17,11 @@ export default async function DisplayAnime({ searchParams }: Page) {
 
   return (
     <>
-      <div className="grid auto-rows-auto grid-cols-2 justify-items-center gap-4 gap-y-6  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
-          {anime?.map((item) => <MediaCard item={item} key={item.id} />)}
-      </div>
+      <MediaCardContainer>
+        {anime?.map((item) => <MediaCard item={item} key={item.id} />)}
+      </MediaCardContainer>
       <div className="mx-auto my-5 w-fit">
-          <NavigatePagination pageInfo={pageInfo} />
+        <NavigatePagination pageInfo={pageInfo} />
       </div>
     </>
   )

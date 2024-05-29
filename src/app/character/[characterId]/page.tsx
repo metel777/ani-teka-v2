@@ -1,4 +1,5 @@
 import MediaCard from "@/components/MediaCard"
+import MediaCardContainer from "@/components/MediaCardContainer"
 import { Title1 } from "@/components/Titles"
 import getCharacter from "@/utils/getCharacter"
 import Image from "next/image"
@@ -10,31 +11,28 @@ export default async function CharactersPage({
 }) {
   const data = await getCharacter(params.characterId)
 
-  const { description, id, image, name,favourites } = data.data.Character
+  const { description, id, image, name, favourites } = data.data.Character
 
   const media = data.data.Character.media.edges
 
   return (
     <main>
-      <section className="flex">
-        <Image
-          width={400}
-          height={570}
-          alt={name.first}
-          src={image.large}
-          className="h-[300px] w-[200px] sm:h-[440px] sm:w-[300px] md:h-[500px] md:w-[350px] lg:h-[570px] lg:w-[400px]"
-        />
-        <section className="p-4">
+      <section className="flex flex-col items-center md:grid md:grid-cols-4 md:items-start">
+        <div>
+          <Image width={300} height={500} alt={name.first} src={image.large} />
+        </div>
+        <section className="col-span-3 p-4 ">
           <Title1>{name.userPreferred}</Title1>
           <p className="-mt-5 mb-5">Favourites: {favourites}</p>
           <div dangerouslySetInnerHTML={{ __html: description }}></div>
         </section>
       </section>
       <div className="p-8">
-
-      <div className="grid auto-rows-auto grid-cols-2 justify-items-center gap-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
-        {media?.map((item: any) => <MediaCard item={item.node} key={item.id} />)}
-      </div>
+        <MediaCardContainer>
+          {media?.map((item: any) => (
+            <MediaCard item={item.node} key={item.id} />
+          ))}
+        </MediaCardContainer>
       </div>
     </main>
   )

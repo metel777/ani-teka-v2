@@ -1,7 +1,8 @@
-'use client'
+"use client"
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { motion } from "framer-motion"
+import { Loader } from "lucide-react"
 
 const anime = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -9,10 +10,10 @@ const anime = [
 ]
 
 export default function loading() {
-
-    return (
-      <>
-        <motion.div
+  return (
+    <main className="h-screen flex items-center justify-center">
+      <Loader size={50} className="animate-spin" />
+      {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, ease: "easeInOut" }}
@@ -29,10 +30,7 @@ export default function loading() {
               <Skeleton className="absolute -right-0 -top-2 h-[22px] w-[75px] rounded-full"></Skeleton>
             </main>
           ))}
-        </motion.div>
-        <div className="mx-auto my-5 w-fit">
-          {/* <NavigatePagination pageInfo={pageInfo} /> */}
-        </div>
-      </>
-    )
+        </motion.div> */}
+    </main>
+  )
 }

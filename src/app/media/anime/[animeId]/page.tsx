@@ -1,21 +1,15 @@
 import { Key } from "react"
 import Image from "next/image"
+import Link from "next/link"
 
 import { Title1, Title2 } from "@/components/Titles"
 import Card, { MiniMediaCard } from "@/components/Mini-Item-Card"
-import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Youtube } from "lucide-react"
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { getFullDataOnMedia } from "@/utils/getFullDataOnMedia"
 import MediaDescription from "../../MediaDescription"
+
+import { Youtube } from "lucide-react"
+import { getFullDataOnMedia } from "@/utils/getFullDataOnMedia"
 import { months } from "@/lib/months"
 
 type Props = {

@@ -1,6 +1,5 @@
 import { getTagsAndGenres } from "@/utils/getTagsAndGenres"
 import InnerNavbar from "@/components/InnerNavbar"
-import { Suspense } from "react"
 
 export default async function layout({
   children,
