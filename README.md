@@ -6,4 +6,6 @@ left to do:
 3. ~~Staff page.~~
 4. ~~Login.~~
 5. Adding to list.
-6. Landing page
+   - Database
+     - Database mutations 
+7. Landing page
