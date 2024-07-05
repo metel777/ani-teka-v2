@@ -9,7 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-indigo-500 text-primary-foreground hover:bg-indigo-500/90",
+        default:
+          "bg-gradient-to-t  from-indigo-500 to-indigo-600 text-white shadow-glance border border-indigo-700 hover:from-indigo-600 hover:to-indigo-700 active:shadow-none active:from-indigo-800 active:to-indigo-900",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -21,9 +22,10 @@ const buttonVariants = cva(
         "warm-primary":
           "bg-g.warm-100 text-g.warm-500 border-2 border-g.warm-200 dark:bg-g.warm-800 dark:border-g.warm-700 hover:bg-g.warm-200 hover:text-g.warm-800 dark:hover:text-g.warm-400 dark:hover:bg-g.warm-700",
         "warm-secondary":
-          "text-xl bg-g.warm-200 hover:bg-g.warm-300 dark:bg-g.warm-800  w-full active:bg-g.warm-200 dark:active:bg-g.warm-800  hover:dark:bg-g.warm-600/40",
+          "bg-g.warm-200 hover:bg-g.warm-300 dark:bg-g.warm-800 active:bg-g.warm-200 dark:active:bg-g.warm-800  hover:dark:bg-g.warm-600/40",
         google: "border hover:bg-g.warm-100 bg-white dark:hover:bg-g.warm-200",
         github: "bg-black text-g.warm-100 hover:bg-black/80",
+        
       },
       size: {
         default: "h-10 px-4 py-2",

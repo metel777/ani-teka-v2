@@ -6,11 +6,12 @@ import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 
 import { Title1 } from "@/components/Titles"
+import { revalidatePath } from "next/cache"
 
 export default async function Home() {
   const data = await getMediaForHome()
   const trending = data.data.Page.media
-
+revalidatePath('/')
 
 
   return (

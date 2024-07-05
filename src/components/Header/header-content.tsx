@@ -7,13 +7,38 @@ import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 import { useScreenWidth } from "@/hooks/useScreenWidth"
 import { Session } from "next-auth"
-import ProfileDropdown from "./profile-dropdown"
 import HeaderDrawer from "./header-drawer"
+import { useEffect, useState } from "react"
+import { VerifyAuth } from "@/actions"
+import ProfileDropdown from "./profile-dropdown"
+import { revalidatePath } from "next/cache"
 
-export default function HeaderContent({ session }: { session: Session }) {
+
+export default function HeaderContent() {
+  const [session, setSession] = useState<Session>({
+    expires: "",
+    user: {
+      email: "",
+      id: "",
+      image: "",
+      name: "",
+    },
+  })
   const path = usePathname()
   const { isDesktop, isMobile, isTablet } = useScreenWidth()
 
+  useEffect(() => {
+    const session = async () => {
+      try {
+        const result = await VerifyAuth()
+        setSession(result)
+      } catch (error) {
+        console.error("Error fetching session:", error)
+      }
+    }
+
+    session()
+  }, [])
   return (
     <>
       <Link className="flex items-center gap-2" href="/">
@@ -58,11 +83,14 @@ export default function HeaderContent({ session }: { session: Session }) {
               </Link>
             </section>
           ) : (
-            <ProfileDropdown name={session.user?.name as string} img={session.user?.image as string} />
+            <ProfileDropdown
+              name={session?.user?.name as string}
+              img={session.user?.image as string}
+            />
           )}
         </>
       ) : (
-        <HeaderDrawer />
+        <HeaderDrawer session={session?.user?.name as string} />
       )}
     </>
   )

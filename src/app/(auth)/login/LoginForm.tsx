@@ -9,27 +9,15 @@ import Link from "next/link"
 type Props = {}
 
 export function LoginForm({}: Props) {
-
-
   return (
     <form className="flex flex-col gap-4">
       <div>
         <Label htmlFor="email">Email</Label>
-        <Input
-      
-          type="email"
-          id="email"
-          placeholder="Email"
-        />
+        <Input type="email" id="email" placeholder="Email" />
       </div>
       <div>
         <Label htmlFor="password">Password</Label>
-        <Input
-     
-          type="password"
-          id="password"
-          placeholder="Password"
-        />
+        <Input type="password" id="password" placeholder="Password" />
       </div>
       <Button type="submit" className="w-full">
         Login
@@ -53,7 +41,8 @@ export function AlternativeLoginForm({}: Props) {
         Login with
         <Image src={"/google.svg"} alt="google icon" width={20} height={20} />
       </Button>
-      <Button
+      {/* <Button
+        disabled
         variant="github"
         name="action"
         value="github"
@@ -62,7 +51,7 @@ export function AlternativeLoginForm({}: Props) {
       >
         Login with
         <Image src={"/github.svg"} alt="github icon" width={20} height={20} />
-      </Button>
+      </Button> */}
       <Link className="text-sm hover:underline" href="/register">
         Doesnt have an account?
       </Link>

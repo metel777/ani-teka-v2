@@ -3,7 +3,6 @@ import Link from "next/link"
 import { ModeToggleMobile } from "@/components/ModeToggle"
 
 import { Title2 } from "../Titles"
-import { Button } from "../ui/button"
 
 import {
   Drawer,
@@ -14,8 +13,10 @@ import {
 
 import { Menu, X } from "lucide-react"
 import Separator from "../Separator"
+import { doLogout } from "@/actions"
 
-export default function HeaderDrawer() {
+
+export default function HeaderDrawer({ session }: { session: string | null }) {
   return (
     <Drawer direction="right">
       <DrawerTrigger>
@@ -24,7 +25,7 @@ export default function HeaderDrawer() {
       <DrawerContent className="h-full">
         {/* Top section */}
         <section className="flex items-center justify-between p-4">
-          <h1 className="text-3xl font-semibold text-text-primary-light dark:text-text-primary-dark">
+          <h1 className="text-text-tertiary-light dark:text-text-tertiary-dark text-5xl font-semibold">
             Menu
           </h1>
           <DrawerClose>
@@ -34,25 +35,66 @@ export default function HeaderDrawer() {
         <Separator />
         {/* Main section */}
         <main className="p-4">
-          <Title2 className="mb-5 mt-2">Navigate</Title2>
-          <section className="mb-5 grid grid-cols-2  gap-2">
-            <Link href="/anime">
-              <Button variant="warm-secondary">
-                <DrawerClose>Anime</DrawerClose>
-              </Button>
-            </Link>
-            <Link href="/manga">
-              <Button variant="warm-secondary">
-                <DrawerClose>Manga</DrawerClose>
-              </Button>
-            </Link>
-          </section>
-          <Title2 className="mb-5 mt-2">Theme</Title2>
-          <section>
+          <NavSection title="Profile">
+            {!session ? (
+              <>
+                <NavLink href="/register">Sign Up</NavLink>
+                <NavLink href="/login">Sign In</NavLink>
+              </>
+            ) : (
+              <>
+              <NavLink href="/settings">Settings</NavLink>
+              <NavLink href="/user/library">My lib</NavLink>
+              <NavLink href="/"><span onClick={() => doLogout()}>Logout</span></NavLink>
+            </>
+            )}
+          </NavSection>
+          <NavSection title="Navigate">
+            <NavLink href="/anime">Anime</NavLink>
+            <NavLink href="/manga">Manga</NavLink>
+          </NavSection>
+          <section className="absolute bottom-10 w-[95%]">
+            <Title2 className="mb-5 mt-2">Theme</Title2>
             <ModeToggleMobile />
           </section>
         </main>
       </DrawerContent>
     </Drawer>
+  )
+}
+
+function NavSection({
+  children,
+  title,
+}: {
+  children: React.ReactNode
+  title: string
+}) {
+  return (
+    <section className="mb-10">
+      <h1 className="mb-5 mt-2 text-3xl font-semibold text-text-secondary-light dark:text-text-primary-dark">
+        {title}
+      </h1>
+      <section className="ml-5 flex flex-col gap-2  border-l-4 border-g.warm-200 pl-5 dark:border-g.warm-700">
+        {children}
+      </section>
+    </section>
+  )
+}
+
+function NavLink({
+  children,
+  href,
+}: {
+  children: React.ReactNode
+  href: string
+}) {
+  return (
+    <Link
+      className="rounded-xl p-2 text-2xl active:bg-g.warm-200 dark:active:bg-g.warm-800 "
+      href={href}
+    >
+      <DrawerClose>{children}</DrawerClose>
+    </Link>
   )
 }

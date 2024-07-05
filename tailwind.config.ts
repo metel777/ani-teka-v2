@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      transitionProperty: {
+        'height': 'height'
+      },
       spacing: {
         "btn.xs": "8px 14px 8px 14px",
         "btn.sm": "10px 16px 10px 16px",
@@ -34,17 +37,27 @@ const config = {
         xl: "0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -4px rgba(16, 24, 40, 0.08)",
         "2xl": "0px 24px 48px -12px rgba(16, 24, 40, 0.18)",
         "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.14)",
-        glance: "inset 0 1px rgba(255, 255, 255, 1)",
+        glance: "inset 0 1px rgba(255, 255, 255, 0.4)",
         "glance-authkit": "inset 0 1px 1px 0 rgba(255, 237, 223, 0.2), inset 0 24px 48px 0 rgba(245, 212, 168, 0.06), inset 0 0 0 1px rgba(247, 221, 186, 0.12)"
       },
       /* on lighter bg color -700, on darker(starts from 400) -white  */
 
       colors: {
+        "brand": '',
+        "text-strong": '',
+        "text-weak": '',
+        "stroke-strong": '',
+        "stroke-weak": '',
+        "fill": '',
+        "foreground": '',
+        "background": '',
         'text': {
           "primary-light": "#44403c",
           "primary-dark": "#d7d3d0",
           "secondary-light": "#79716b",
           "secondary-dark": "#79716b",
+          "tertiary-light": "#d7d3d0",
+          "tertiary-dark": "#44403c",
           // "text": "#color",
           // "text": "#color",
           // "text": "#color",

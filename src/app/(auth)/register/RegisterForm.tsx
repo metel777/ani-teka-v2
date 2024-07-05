@@ -39,10 +39,10 @@ export function AlternativeRegisterForm({}: Props) {
         Register with
         <Image src={"/google.svg"} alt="google icon" width={20} height={20} />
       </Button>
-      <Button variant="github" type="submit" className="w-full">
+      {/* <Button disabled variant="github" type="submit" className="w-full">
         Register with
         <Image src={"/github.svg"} alt="github icon" width={20} height={20} />
-      </Button>
+      </Button> */}
 
       <Link className="text-sm hover:underline" href="/login">
         Already have an account?

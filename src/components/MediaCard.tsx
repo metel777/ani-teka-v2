@@ -49,26 +49,29 @@ export default function MediaCard({ item }: { item: media }) {
   return (
     <HoverCard>
       <HoverCardTrigger className="w-fit">
-        <motion.main
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+        <main
           onClick={() => push(`/media/${mediaType}/${id}`)}
           className="relative w-[160px] min-w-[210px] cursor-pointer transition-all  hover:text-brand-primary sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]"
           key={id}
         >
-          <div className="items-center justify-center  overflow-hidden rounded-xl border border-g.warm-300 dark:border-g.warm-800">
-            <Image
-              key={Math.random()}
-              alt={title?.english}
-              width={300}
-              priority
-              height={550}
-              className={`h-[300px] max-h-[300px] w-[100px] min-w-[210px]  transition-all duration-1000  sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]`}
-              src={coverImage?.large}
-              quality={50}
-              onLoad={() => setImageLoading(false)}
-            />
+          <div className="items-center justify-center  overflow-hidden rounded-lg border border-g.warm-300 bg-g.warm-100 dark:border-g.warm-800 dark:bg-g.warm-800">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: "backIn" }}
+            >
+              <Image
+                key={Math.random()}
+                alt={title?.english}
+                width={300}
+                priority={true}
+                height={550}
+                className={`h-[300px] max-h-[300px] w-[100px] min-w-[210px]  transition-all duration-1000  sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]`}
+                src={coverImage?.large}
+                quality={50}
+                onLoad={() => setImageLoading(false)}
+              />
+            </motion.div>
           </div>
           <p className="line-clamp-1 text-sm">
             {title?.english || title?.romaji}
@@ -92,10 +95,10 @@ export default function MediaCard({ item }: { item: media }) {
           >
             {status === "NOT_YET_RELEASED" ? "ANNOUNCE" : status}
           </Badge>
-        </motion.main>
+        </main>
       </HoverCardTrigger>
       <HoverCardContent
-        className="border-g.warm-100 bg-bg-primary-light p-0 text-sm text-text-secondary-light shadow-lg dark:border-g.warm-700 dark:bg-bg-secondary-dark dark:text-text-secondary-dark"
+        className="w-[300px] border-g.warm-300 bg-bg-primary-light p-0 text-sm text-text-secondary-light shadow-lg dark:border-g.warm-700 dark:bg-bg-secondary-dark dark:text-text-secondary-dark"
         side="right"
         align="start"
       >
@@ -106,6 +109,7 @@ export default function MediaCard({ item }: { item: media }) {
           format={format}
           episodes={episodes}
           description={description}
+          studios={studios}
         />
       </HoverCardContent>
     </HoverCard>
@@ -126,7 +130,74 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Separator from "./Separator"
+import Link from "next/link"
 
+// function HoverContent({
+//   title,
+//   startDate,
+//   format,
+//   episodes,
+//   description,
+//   chapters,
+// }: any) {
+//   return (
+//     <main>
+//       <section>
+//         <p className="flex gap-2 px-1 py-2">
+//           <Text size={17} className="mt-1" />
+//           <b>{title}</b>
+//         </p>
+//         <Separator />
+//         <div className="flex">
+//           <DetailItem>
+//             <CalendarFold size={17} className="mt-1" />
+//             <b>Year: </b>
+//             {startDate}
+//           </DetailItem>
+//           <DetailItem>
+//             <BookType size={17} className="mt-1" />
+//             <b>Type: </b>
+//             {format}
+//           </DetailItem>
+//         </div>
+//         {format === "MANGA" && !chapters ? (
+//           ""
+//         ) : (
+//           <DetailItem>
+//             {format === "MANGA" ? (
+//               <>
+//                 <BookOpen className="mt-1 min-w-[17px]" width={17} size={17} />
+//                 <span>
+//                   <b>Chapters: </b>
+//                   {chapters}
+//                 </span>
+//               </>
+//             ) : (
+//               <>
+//                 <Video className="mt-1 min-w-[17px]" width={17} size={17} />
+//                 <span>
+//                   <b>{episodes === 1 ? "Episode: " : "Episodes: "}</b>
+//                   {episodes?.toString()}{" "}
+//                 </span>
+//               </>
+//             )}
+//           </DetailItem>
+//         )}
+
+//         <div className="px-1">
+//           <div className="flex gap-2">
+//             <ScrollText size={17} className="mt-1" />
+//             <b>Description:</b>
+//           </div>
+//           <div
+//             className="mb-2 line-clamp-5 pl-6 "
+//             dangerouslySetInnerHTML={{ __html: description }}
+//           ></div>
+//         </div>
+//       </section>
+//     </main>
+//   )
+// }
 function HoverContent({
   title,
   startDate,
@@ -134,59 +205,33 @@ function HoverContent({
   episodes,
   description,
   chapters,
+  studios,
 }: any) {
+  console.log(studios)
   return (
     <main>
       <section>
-        <p className="flex gap-2 px-1 py-2">
-          <Text size={17} className="mt-1" />
-          <b>{title}</b>
-        </p>
-        <Separator/>
-        <div className="flex">
-
-        <DetailItem>
-          <CalendarFold size={17} className="mt-1" />
-          <b>Year: </b>
-          {startDate}
-        </DetailItem>
-        <DetailItem>
-          <BookType size={17} className="mt-1" />
-          <b>Type: </b>
-          {format}
-        </DetailItem>
-        </div>
-        {format === "MANGA" && !chapters ? (
-          ""
-        ) : (
-          <DetailItem>
-            {format === "MANGA" ? (
-              <>
-                <BookOpen className="mt-1 min-w-[17px]" width={17} size={17} />
-                <span>
-                  <b>Chapters: </b>
-                  {chapters}
-                </span>
-              </>
-            ) : (
-              <>
-                <Video className="mt-1 min-w-[17px]" width={17} size={17} />
-                <span>
-                  <b>{episodes === 1 ? "Episode: " : "Episodes: "}</b>
-                  {episodes?.toString()}{" "}
-                </span>
-              </>
-            )}
-          </DetailItem>
-        )}
-
-        <div className="px-1">
+        <div className="p-2">
+          <p className="flex gap-2 text-g.warm-700">
+            <b>{title}</b>
+          </p>
           <div className="flex gap-2">
-            <ScrollText size={17} className="mt-1" />
-            <b>Description:</b>
+            <span>{startDate}</span>•
+            <span className="hover:underline">
+              <Link href={`/studio/${studios?.nodes[0]?.id}`}>
+                {studios?.nodes[0]?.name}
+              </Link>
+            </span>
+            •<span>{episodes} ep.</span>
+          </div>
+        </div>
+
+        <div className=" bg-g.warm-100 p-2">
+          <div className="tracking flex gap-2 font-medium uppercase tracking-wide text-g.warm-700">
+            Description
           </div>
           <div
-            className="mb-2 line-clamp-5 pl-6 "
+            className="mt-2 line-clamp-6"
             dangerouslySetInnerHTML={{ __html: description }}
           ></div>
         </div>

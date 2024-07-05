@@ -73,7 +73,7 @@ const tagsWithoutXXX = tags.filter(tag => tag.isAdult === false)
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-full justify-center"
         >
          Filter by tags
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -210,7 +210,7 @@ export function GenresPick({ genres }: { genres: string[] }) {
     <div className="relative">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
+          <Button  className="w-full justify-center" variant="outline">
             Filter by genres
             <DropdownIcon />
           </Button>

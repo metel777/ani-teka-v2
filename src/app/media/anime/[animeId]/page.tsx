@@ -8,9 +8,10 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import MediaDescription from "../../MediaDescription"
 
-import { Youtube } from "lucide-react"
+import { Plus, Youtube } from "lucide-react"
 import { getFullDataOnMedia } from "@/utils/getFullDataOnMedia"
 import { months } from "@/lib/months"
+import AddToList from "@/components/AddToList"
 
 type Props = {
   params: {
@@ -42,6 +43,7 @@ export default async function AnimePage({ params }: Props) {
     studios,
     startDate,
     endDate,
+  
   } = media
 
   return (
@@ -81,6 +83,7 @@ export default async function AnimePage({ params }: Props) {
                 <b>Episodes:</b> {media.episodes.toString()}
               </div>
             )}
+            <AddToList mediaId={paramAnimeId} />
           </section>
           <section className="mt-5 flex flex-col gap-2">
             <div>
@@ -91,7 +94,7 @@ export default async function AnimePage({ params }: Props) {
                   {startDate.year}
                   {endDate.day && (
                     <>
-                      to {endDate.day} {months[endDate.month - 1]},{" "}
+                      {" "} to {endDate.day} {months[endDate.month - 1]},{" "}
                       {endDate.year}
                     </>
                   )}
@@ -99,28 +102,18 @@ export default async function AnimePage({ params }: Props) {
               )}
             </div>
             <MediaDescription description={description} />
-
-            {/* {favourites && <div> <b>User favourites:</b> {favourites.toString()}</div>} */}
             {format && (
               <div>
                 {" "}
                 <b>Format:</b> {format.toString()}
               </div>
             )}
-
-            {/* <div> <b>Tags:</b> {media.tags.map(tag => (
-              <Badge className="cursor-default">
-              {tag.name}
-              </Badge>
-            ))}</div> */}
-            {}
             {season && seasonYear && (
               <div>
                 {" "}
                 <b>Season:</b> {season?.toString()} {seasonYear.toString()}
               </div>
             )}
-            {/* {source && <div> <b>Source:</b> {source.toString()}</div>} */}
             {studios && (
               <div>
                 {" "}
@@ -206,7 +199,6 @@ export default async function AnimePage({ params }: Props) {
             </div>
           </section>
         )}
-
         {media.recommendations.edges.length > 0 && (
           <section>
             <Title1>Recomendations</Title1>
