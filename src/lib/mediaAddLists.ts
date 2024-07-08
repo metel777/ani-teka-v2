@@ -1,1 +1,1 @@
-export const mediaAddLists = ["Planning", "Watching", "Paused", "Dropped"]
+export const mediaAddLists = ["All", "Planning", "Watching", "Paused", "Dropped"]

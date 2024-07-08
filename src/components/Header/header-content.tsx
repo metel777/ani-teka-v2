@@ -9,36 +9,13 @@ import { useScreenWidth } from "@/hooks/useScreenWidth"
 import { Session } from "next-auth"
 import HeaderDrawer from "./header-drawer"
 import { useEffect, useState } from "react"
-import { VerifyAuth } from "@/actions"
 import ProfileDropdown from "./profile-dropdown"
 import { revalidatePath } from "next/cache"
 
-
 export default function HeaderContent() {
-  const [session, setSession] = useState<Session>({
-    expires: "",
-    user: {
-      email: "",
-      id: "",
-      image: "",
-      name: "",
-    },
-  })
   const path = usePathname()
   const { isDesktop, isMobile, isTablet } = useScreenWidth()
 
-  useEffect(() => {
-    const session = async () => {
-      try {
-        const result = await VerifyAuth()
-        setSession(result)
-      } catch (error) {
-        console.error("Error fetching session:", error)
-      }
-    }
-
-    session()
-  }, [])
   return (
     <>
       <Link className="flex items-center gap-2" href="/">
@@ -68,29 +45,28 @@ export default function HeaderContent() {
             </Link>
             <Link href="/test">Test</Link>
           </section>
-          {!session ? (
-            <section className="flex gap-2">
-              <Link href="/register">
-                <Button>Sign Up</Button>
-              </Link>
-              <Link href="/login">
-                <Button
-                  className="hover:bg-g.warm-700 hover:text-g.warm-300"
-                  variant="ghost"
-                >
-                  Sign In
-                </Button>
-              </Link>
-            </section>
-          ) : (
-            <ProfileDropdown
+
+          <section className="flex gap-2">
+            <Link href="/register">
+              <Button>Sign Up</Button>
+            </Link>
+            <Link href="/login">
+              <Button
+                className="hover:bg-g.warm-700 hover:text-g.warm-300"
+                variant="ghost"
+              >
+                Sign In
+              </Button>
+            </Link>
+          </section>
+
+          {/* <ProfileDropdown
               name={session?.user?.name as string}
               img={session.user?.image as string}
-            />
-          )}
+            /> */}
         </>
       ) : (
-        <HeaderDrawer session={session?.user?.name as string} />
+        <HeaderDrawer />
       )}
     </>
   )

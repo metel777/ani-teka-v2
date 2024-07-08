@@ -22,11 +22,11 @@ export default function InnerNavbar({
 
   return (
     <main
-      className={`mb-10 overflow-hidden border-b border-g.warm-200 transition-all  dark:border-g.warm-800`}
+      className={`mb-10 overflow-hidden border-b border-[--stroke-weak] transition-all`}
     >
       <section className="flex items-center justify-between p-4">
         <div className="flex">
-          <h1 className="p-2 text-3xl font-bold dark:text-text-primary-dark">
+          <h1 className="p-2 text-3xl font-bold text-[--text-secondary]">
             {path == "/anime" ? "Animations" : "Manga"}
           </h1>
           <NavSearch />
@@ -49,12 +49,13 @@ export default function InnerNavbar({
         <div> </div>
       </section>
 
-
-     {isFilterOpen && isTablet && <section className=" justify-center flex flex-col sm:flex-row gap-2 border-t border-g.warm-200 bg-g.warm-25 p-4 dark:border-g.warm-800">
-        <GenresPick genres={genres} />
-        <TagsPick tags={tags} />
-        <OrderPick />
-      </section>}
+      {isFilterOpen && isTablet && (
+        <section className=" grid grid-cols-3 gap-2 border-t border-[--stroke-secondary] bg-g.warm-200 p-4 dark:bg-g.warm-950">
+          <GenresPick genres={genres} />
+          <TagsPick tags={tags} />
+          <OrderPick />
+        </section>
+      )}
     </main>
   )
 }

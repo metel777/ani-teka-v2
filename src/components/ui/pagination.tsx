@@ -8,7 +8,7 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
     role="navigation"
     aria-label="pagination"
-    className={cn("w-fit cursor-pointer", className)}
+    className={cn("w-fit cursor-pointer ", className)}
     {...props}
   />
 )

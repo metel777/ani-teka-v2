@@ -1,10 +1,21 @@
-import { db } from "@/lib/db";
-import { Session } from "next-auth";
+'use server'
 
-export function handleSaveList(mediaId: number, selectedList: "Planning" | "Watching" | "Paused" | "Dropped", session: Session) {
-    return db
-      .prepare(
-        `INSERT INTO userLibrary (mediaId, list, userId) VALUES (?, ?, ?);`,
-      )
-      .run(mediaId, selectedList, session?.user?.email)
-  }
+import { db } from "@/db/db";
+import { userLists } from "@/db/schema";
+
+export async function addToList(formData: FormData) {
+    const mediaId = formData.get('mediaId') as string
+    const mediaType = formData.get('mediaType') as 'anime' | 'manga'
+    const watchedEpisodes = formData.get('watchedEpisodes') as string
+    const score = formData.get('score') as string
+    const list = formData.get('list') as 'planning' | 'watching' | 'paused' | 'dropped'
+
+    await db.insert(userLists).values({
+        userId: '1',
+        list: list,
+        media_id: Number(mediaId),
+        mediaType: mediaType,
+        score: Number(score),
+        watchedEpisodes: Number(watchedEpisodes)
+    })
+}

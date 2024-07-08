@@ -1,26 +1,16 @@
 "use client"
 import { motion } from "framer-motion"
-
 import Image from "next/image"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import {
-  BookOpen,
-  BookType,
-  CalendarFold,
-  Loader,
-  ScrollText,
-  Text,
-  Video,
-} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
 import { media } from "@/types/media"
-import { Suspense, useState } from "react"
-import { Skeleton } from "./ui/skeleton"
+import { useState } from "react"
+import Link from "next/link"
 
 export default function MediaCard({ item }: { item: media }) {
   const { push } = useRouter()
@@ -44,17 +34,17 @@ export default function MediaCard({ item }: { item: media }) {
   } = item
   const mediaType = type?.toLowerCase()
 
-  const [imageLoading, setImageLoading] = useState(true)
+  // const [imageLoading, setImageLoading] = useState(true)
 
   return (
     <HoverCard>
       <HoverCardTrigger className="w-fit">
         <main
           onClick={() => push(`/media/${mediaType}/${id}`)}
-          className="relative w-[160px] min-w-[210px] cursor-pointer transition-all  hover:text-brand-primary sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]"
+          className="relative w-[160px] min-w-[210px] cursor-pointer transition-all  hover:text-[--brand-main] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]"
           key={id}
         >
-          <div className="items-center justify-center  overflow-hidden rounded-lg border border-g.warm-300 bg-g.warm-100 dark:border-g.warm-800 dark:bg-g.warm-800">
+          <div className="items-center justify-center  overflow-hidden rounded-lg border border-[--stroke-weak] bg-[--fill] ">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -69,22 +59,25 @@ export default function MediaCard({ item }: { item: media }) {
                 className={`h-[300px] max-h-[300px] w-[100px] min-w-[210px]  transition-all duration-1000  sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]`}
                 src={coverImage?.large}
                 quality={50}
-                onLoad={() => setImageLoading(false)}
+                // onLoad={() => setImageLoading(false)}
               />
             </motion.div>
           </div>
           <p className="line-clamp-1 text-sm">
             {title?.english || title?.romaji}
           </p>
+
+          {/* if averageScore name do display */}
           {averageScore && (
             <p
               className={`text-sm ${averageScore > 75 ? "text-green-500" : averageScore < 75 ? "text-amber-500" : averageScore < 50 ? "text-red-500" : ""}`}
             >
-              Rating: {averageScore}
+              Rating: {averageScore}%
             </p>
           )}
+          {/* status formatting*/}
           <Badge
-            className="absolute -right-0 -top-2"
+            className="absolute -right-0 -top-2 flex gap-2"
             variant={
               status === "FINISHED"
                 ? "finished"
@@ -93,12 +86,44 @@ export default function MediaCard({ item }: { item: media }) {
                   : "releasing"
             }
           >
-            {status === "NOT_YET_RELEASED" ? "ANNOUNCE" : status}
+            {status === "NOT_YET_RELEASED" ? (
+              <>
+                <Image
+                  width={17}
+                  height={17}
+                  alt="calendar icon"
+                  src="/calendar2-event.svg"
+                />
+                ANNOUNCE
+              </>
+            ) : status === "FINISHED" ? (
+              <>
+                <Image
+                  width={17}
+                  height={17}
+                  alt="calendar icon"
+                  src="/check2.svg"
+                />
+                FINISHED
+              </>
+            ) : status === "RELEASING" ? (
+              <>
+                <Image
+                  width={17}
+                  height={17}
+                  alt="calendar icon"
+                  src="/broadcast.svg"
+                />
+                RELEASING
+              </>
+            ) : (
+              status
+            )}
           </Badge>
         </main>
       </HoverCardTrigger>
       <HoverCardContent
-        className="w-[300px] border-g.warm-300 bg-bg-primary-light p-0 text-sm text-text-secondary-light shadow-lg dark:border-g.warm-700 dark:bg-bg-secondary-dark dark:text-text-secondary-dark"
+        className="w-[300px] overflow-hidden border-[--stroke-secondary] p-0 text-sm text-[--text-secondary] shadow-lg"
         side="right"
         align="start"
       >
@@ -116,88 +141,6 @@ export default function MediaCard({ item }: { item: media }) {
   )
 }
 
-function DetailItem({ children }: { children: React.ReactNode }) {
-  return <div className="mb-2 flex gap-2 px-1">{children}</div>
-}
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import Separator from "./Separator"
-import Link from "next/link"
-
-// function HoverContent({
-//   title,
-//   startDate,
-//   format,
-//   episodes,
-//   description,
-//   chapters,
-// }: any) {
-//   return (
-//     <main>
-//       <section>
-//         <p className="flex gap-2 px-1 py-2">
-//           <Text size={17} className="mt-1" />
-//           <b>{title}</b>
-//         </p>
-//         <Separator />
-//         <div className="flex">
-//           <DetailItem>
-//             <CalendarFold size={17} className="mt-1" />
-//             <b>Year: </b>
-//             {startDate}
-//           </DetailItem>
-//           <DetailItem>
-//             <BookType size={17} className="mt-1" />
-//             <b>Type: </b>
-//             {format}
-//           </DetailItem>
-//         </div>
-//         {format === "MANGA" && !chapters ? (
-//           ""
-//         ) : (
-//           <DetailItem>
-//             {format === "MANGA" ? (
-//               <>
-//                 <BookOpen className="mt-1 min-w-[17px]" width={17} size={17} />
-//                 <span>
-//                   <b>Chapters: </b>
-//                   {chapters}
-//                 </span>
-//               </>
-//             ) : (
-//               <>
-//                 <Video className="mt-1 min-w-[17px]" width={17} size={17} />
-//                 <span>
-//                   <b>{episodes === 1 ? "Episode: " : "Episodes: "}</b>
-//                   {episodes?.toString()}{" "}
-//                 </span>
-//               </>
-//             )}
-//           </DetailItem>
-//         )}
-
-//         <div className="px-1">
-//           <div className="flex gap-2">
-//             <ScrollText size={17} className="mt-1" />
-//             <b>Description:</b>
-//           </div>
-//           <div
-//             className="mb-2 line-clamp-5 pl-6 "
-//             dangerouslySetInnerHTML={{ __html: description }}
-//           ></div>
-//         </div>
-//       </section>
-//     </main>
-//   )
-// }
 function HoverContent({
   title,
   startDate,
@@ -207,31 +150,41 @@ function HoverContent({
   chapters,
   studios,
 }: any) {
-  console.log(studios)
   return (
     <main>
       <section>
-        <div className="p-2">
-          <p className="flex gap-2 text-g.warm-700">
-            <b>{title}</b>
-          </p>
+        {/*::::::::: YEAR  •  STUDIO  •  EPISODES :::::::::::::::*/}
+        <div className="bg-[--fill] p-2">
+          <p className="flex gap-2 text-[--text-strong]">{title}</p>
           <div className="flex gap-2">
-            <span>{startDate}</span>•
-            <span className="hover:underline">
-              <Link href={`/studio/${studios?.nodes[0]?.id}`}>
-                {studios?.nodes[0]?.name}
-              </Link>
-            </span>
-            •<span>{episodes} ep.</span>
+            {/* if startDate do display */}
+            {startDate && (
+              <>
+                <span>{startDate}</span>•
+              </>
+            )}
+            {/* if studios name do display */}
+            {studios?.nodes[0]?.name && (
+              <>
+                <span className="hover:underline">
+                  <Link href={`/studio/${studios.nodes[0].id}`}>
+                    {studios.nodes[0].name}
+                  </Link>
+                </span>
+                •
+              </>
+            )}
+            {/* if episodes do display */}
+            {episodes && <span>{episodes} ep.</span>}
           </div>
         </div>
-
-        <div className=" bg-g.warm-100 p-2">
-          <div className="tracking flex gap-2 font-medium uppercase tracking-wide text-g.warm-700">
-            Description
+        {/*::::::::: DESCRIPTION :::::::::::::::*/}
+        <div className=" bg-[--main-bg] p-2 dark:bg-g.warm-800">
+          <div className="tracking flex gap-2 text-xs font-medium uppercase tracking-wide text-[--text-weak]">
+            description
           </div>
           <div
-            className="mt-2 line-clamp-6"
+            className=" line-clamp-6 text-[--text-secondary]"
             dangerouslySetInnerHTML={{ __html: description }}
           ></div>
         </div>

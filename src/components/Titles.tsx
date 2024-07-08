@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils"
 
-export function Title1({ children }: { children: React.ReactNode }) {
+export function Title1({ children, className }: { children: React.ReactNode, className?: string }) {
   return (
-    <h1 className="mb-4 text-3xl font-bold dark:text-g.dark-50">{children}</h1>
+    <h1 className={`mb-4 text-3xl font-bold dark:text-g.dark-50 ${className}`}>{children}</h1>
   )
 }
 export function Title2({

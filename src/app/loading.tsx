@@ -2,7 +2,7 @@
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { motion } from "framer-motion"
-import { Loader } from "lucide-react"
+import { Loader, Loader2 } from "lucide-react"
 
 const anime = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -12,7 +12,7 @@ const anime = [
 export default function loading() {
   return (
     <main className="h-screen flex items-center justify-center">
-      <Loader size={50} className="animate-spin" />
+      <Loader2 size={50} className="animate-spin" />
       {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

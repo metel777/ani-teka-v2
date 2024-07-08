@@ -43,14 +43,6 @@ const config = {
       /* on lighter bg color -700, on darker(starts from 400) -white  */
 
       colors: {
-        "brand": '',
-        "text-strong": '',
-        "text-weak": '',
-        "stroke-strong": '',
-        "stroke-weak": '',
-        "fill": '',
-        "foreground": '',
-        "background": '',
         'text': {
           "primary-light": "#44403c",
           "primary-dark": "#d7d3d0",

@@ -22,9 +22,9 @@ export function NavSearch() {
   }, 1000)
 
   return (
-    <div className="w-62 grid max-w-sm items-center gap-1.5">
+    <div className="grid w-60 max-w-sm items-center gap-1.5 sm:w-72">
       <Input
-        className="border-g.warm-200 bg-g.warm-25 text-text-secondary-light placeholder:text-g.warm-400 dark:border-g.warm-800 dark:bg-g.warm-900 dark:text-text-primary-dark dark:placeholder:text-g.warm-600"
+        className=" bg-[--fill] text-[--text-strong] placeholder:text-[--text-secondary] border-none dark:bg-[--fill] dark:text-[--text-strong] dark:placeholder:text-[--text-secondary]"
         onChange={(e) => handleSearch(e.target.value)}
         placeholder="Search media"
         id="search"

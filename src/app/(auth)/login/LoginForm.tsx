@@ -1,4 +1,3 @@
-import { doSocialLogin } from "@/actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -30,7 +29,7 @@ export function LoginForm({}: Props) {
 }
 export function AlternativeLoginForm({}: Props) {
   return (
-    <form action={doSocialLogin} className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4">
       <Button
         variant="google"
         name="action"
@@ -41,17 +40,6 @@ export function AlternativeLoginForm({}: Props) {
         Login with
         <Image src={"/google.svg"} alt="google icon" width={20} height={20} />
       </Button>
-      {/* <Button
-        disabled
-        variant="github"
-        name="action"
-        value="github"
-        className="w-full"
-        type="submit"
-      >
-        Login with
-        <Image src={"/github.svg"} alt="github icon" width={20} height={20} />
-      </Button> */}
       <Link className="text-sm hover:underline" href="/register">
         Doesnt have an account?
       </Link>

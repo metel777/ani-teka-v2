@@ -13,10 +13,9 @@ import {
 
 import { Menu, X } from "lucide-react"
 import Separator from "../Separator"
-import { doLogout } from "@/actions"
 
 
-export default function HeaderDrawer({ session }: { session: string | null }) {
+export default function HeaderDrawer() {
   return (
     <Drawer direction="right">
       <DrawerTrigger>
@@ -36,7 +35,7 @@ export default function HeaderDrawer({ session }: { session: string | null }) {
         {/* Main section */}
         <main className="p-4">
           <NavSection title="Profile">
-            {!session ? (
+            {/* {!session ? (
               <>
                 <NavLink href="/register">Sign Up</NavLink>
                 <NavLink href="/login">Sign In</NavLink>
@@ -45,9 +44,9 @@ export default function HeaderDrawer({ session }: { session: string | null }) {
               <>
               <NavLink href="/settings">Settings</NavLink>
               <NavLink href="/user/library">My lib</NavLink>
-              <NavLink href="/"><span onClick={() => doLogout()}>Logout</span></NavLink>
+              <NavLink href="/"><span>Logout</span></NavLink>
             </>
-            )}
+            )} */}
           </NavSection>
           <NavSection title="Navigate">
             <NavLink href="/anime">Anime</NavLink>
@@ -67,7 +66,7 @@ function NavSection({
   children,
   title,
 }: {
-  children: React.ReactNode
+  children?: React.ReactNode
   title: string
 }) {
   return (

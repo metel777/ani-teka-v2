@@ -43,12 +43,12 @@ export default async function AnimePage({ params }: Props) {
     studios,
     startDate,
     endDate,
-  
   } = media
 
   return (
     <main className="mb flex flex-col gap-10">
-      <section className="flex flex-col overflow-hidden md:flex-row">
+      {/* ::::::::::::::::::::::MAIN SECTION START:::::::::::::::::::::::: */}
+      <section className="flex flex-col overflow-hidden md:flex-row ">
         <Image
           src={coverImage.extraLarge}
           alt={title.english}
@@ -60,6 +60,8 @@ export default async function AnimePage({ params }: Props) {
         <div className="p-4">
           <Title1>{title.english || title.romaji}</Title1>
           {title.romaji && <Title2>{title.romaji}</Title2>}
+
+          {/* ::::::::::::::::::::::ESSENTIAL INFO SESSION::::::::::::::::::::::: */}
           <section className="mt-5 flex items-center gap-4">
             <Button variant="warm-primary" className="flex gap-2">
               <Youtube />
@@ -67,25 +69,29 @@ export default async function AnimePage({ params }: Props) {
             </Button>
             {averageScore && (
               <div>
-                <b>Average score:</b> {averageScore.toString()}
+                <b className="text-[--text-secondary]">Average score:</b>{" "}
+                {averageScore.toString()}
               </div>
             )}
             {status && (
               <div>
-                {" "}
                 <b>Status:</b>{" "}
                 {status === "NOT_YET_RELEASED" ? "ANNOUNCE" : status.toString()}
               </div>
             )}
             {episodes && (
               <div>
-                {" "}
                 <b>Episodes:</b> {media.episodes.toString()}
               </div>
             )}
-            <AddToList mediaId={paramAnimeId} />
+            <AddToList
+              mediaType={type}
+              episodes={episodes}
+              mediaId={paramAnimeId}
+            />
           </section>
           <section className="mt-5 flex flex-col gap-2">
+            <MediaDescription description={description} />
             <div>
               {startDate.day && (
                 <>
@@ -94,26 +100,27 @@ export default async function AnimePage({ params }: Props) {
                   {startDate.year}
                   {endDate.day && (
                     <>
-                      {" "} to {endDate.day} {months[endDate.month - 1]},{" "}
+                      {" "}
+                      to {endDate.day} {months[endDate.month - 1]},{" "}
                       {endDate.year}
                     </>
                   )}
                 </>
               )}
             </div>
-            <MediaDescription description={description} />
-            {format && (
-              <div>
-                {" "}
-                <b>Format:</b> {format.toString()}
-              </div>
-            )}
             {season && seasonYear && (
               <div>
                 {" "}
                 <b>Season:</b> {season?.toString()} {seasonYear.toString()}
               </div>
             )}
+            {format && (
+              <div>
+                {" "}
+                <b>Format:</b> {format.toString()}
+              </div>
+            )}
+
             {studios && (
               <div>
                 {" "}
@@ -144,6 +151,8 @@ export default async function AnimePage({ params }: Props) {
           <section></section>
         </div>
       </section>
+      {/* ::::::::::::::::::::::MAIN SECTION END:::::::::::::::::::::::: */}
+
       <main className="p-4">
         {media.relations.edges.length > 0 && (
           <section>

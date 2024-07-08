@@ -1,30 +1,17 @@
 "use client"
 
-import { ChevronsUpDown } from "lucide-react"
-import { Button } from "./ui/button"
 import * as React from "react"
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { MediaTagCollection } from "@/types/tags-genres"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { Badge } from "./ui/badge"
 
-function DropdownIcon() {
-  return <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-}
-//TagsPick ===============
-type Checked = DropdownMenuCheckboxItemProps["checked"]
+import { MediaTagCollection } from "@/types/tags-genres"
+
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 import { Check } from "lucide-react"
+import { ChevronsUpDown } from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import {
   Command,
   CommandEmpty,
@@ -38,20 +25,39 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+function DropdownIcon() {
+  return <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
+}
+
+//:::::::::::::Filter by tags ::::::::::::
 
 export function TagsPick({ tags }: { tags: MediaTagCollection[] }) {
-
-const tagsWithoutXXX = tags.filter(tag => tag.isAdult === false)
-
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
-  const searchParamsHook = useSearchParams()
-  const params = new URLSearchParams(searchParamsHook)
   const { push } = useRouter()
   const pathname = usePathname()
 
+  const searchParamsHook = useSearchParams()
+  const params = new URLSearchParams(searchParamsHook)
+
+  const tagsWithoutXXX = tags.filter((tag) => tag.isAdult === false)
+
   const tagsParams = params.getAll("tag")
+
   function handleSelectTag(tag: string) {
     if (params.has("tag", tag)) {
       const updatedGenres = tagsParams.filter((t) => t !== tag)
@@ -60,55 +66,56 @@ const tagsWithoutXXX = tags.filter(tag => tag.isAdult === false)
     } else {
       params.append("tag", tag)
     }
-    // Push the updated params to the router
     push(`${pathname}?${params.toString()}`)
   }
 
   return (
     <div className="relative">
-      
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-center"
-        >
-         Filter by tags
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput className="text-white" placeholder="Search tags..." />
-          <CommandEmpty>No tags found.</CommandEmpty>
-          <CommandGroup>
-            <CommandList>
-              {tagsWithoutXXX.map((tag) => (
-                <CommandItem
-                  key={tag.id}
-                  value={tag.name}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                    handleSelectTag(tag.name)
-                  }}
-                >
-                 
-                  {params.has("tag", tag.name) ? (
-                    <Check className={"mr-2 h-4 w-4 "} />
-                  ) :  <Check className={"mr-2 h-4 w-4 opacity-0"} />}
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="dropdown"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-center"
+          >
+            Filter by tags
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[200px] p-0">
+          <Command>
+            <CommandInput className="text-white" placeholder="Search tags..." />
+            <CommandEmpty>No tags found.</CommandEmpty>
+            <CommandGroup>
+              <CommandList>
+                {tagsWithoutXXX.map((tag) => (
+                  <CommandItem
+                    key={tag.id}
+                    value={tag.name}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue)
+                      setOpen(false)
+                      handleSelectTag(tag.name)
+                    }}
+                  >
+                    {params.has("tag", tag.name) ? (
+                      <Check className={"mr-2 h-4 w-4 "} />
+                    ) : (
+                      <Check className={"mr-2 h-4 w-4 opacity-0"} />
+                    )}
 
-                  {tag.name}
-                </CommandItem>
-              ))}
-            </CommandList>
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
-    {tagsParams.length > 0 && (
+                    {tag.name}
+                  </CommandItem>
+                ))}
+              </CommandList>
+            </CommandGroup>
+          </Command>
+        </PopoverContent>
+      </Popover>
+
+      {/* Selected tags indicator */}
+      {tagsParams.length > 0 && (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger className="absolute -right-2 -top-2">
@@ -121,11 +128,10 @@ const tagsWithoutXXX = tags.filter(tag => tag.isAdult === false)
         </TooltipProvider>
       )}
     </div>
-
   )
 }
 
-//OrderPick ===============
+//:::::::::::::Order by::::::::::::::
 
 const order = [
   { name: "Popularity", orderName: "POPULARITY_DESC" },
@@ -143,7 +149,6 @@ export function OrderPick() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { push } = useRouter()
-
   const params = new URLSearchParams(searchParams)
 
   function handleOrder(order: string) {
@@ -154,7 +159,7 @@ export function OrderPick() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button variant="dropdown">
           Order by <DropdownIcon />
         </Button>
       </DropdownMenuTrigger>
@@ -174,13 +179,7 @@ export function OrderPick() {
   )
 }
 
-//GenresPick =========
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+//::::::::::Filter by genres::::::::::
 
 export function GenresPick({ genres }: { genres: string[] }) {
   const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
@@ -191,6 +190,7 @@ export function GenresPick({ genres }: { genres: string[] }) {
   const pathname = usePathname()
 
   const genresParams = params.getAll("genre")
+
   function handleSelectGenre(genre: string) {
     if (params.has("genre", genre)) {
       const updatedGenres = genresParams.filter((g) => g !== genre)
@@ -210,7 +210,7 @@ export function GenresPick({ genres }: { genres: string[] }) {
     <div className="relative">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button  className="w-full justify-center" variant="outline">
+          <Button className="w-full justify-center" variant="dropdown">
             Filter by genres
             <DropdownIcon />
           </Button>
@@ -228,6 +228,8 @@ export function GenresPick({ genres }: { genres: string[] }) {
         </DropdownMenuContent>
       </DropdownMenu>
 
+      {/* Selected genres indicator */}
+      
       {genresParams.length > 0 && (
         <TooltipProvider>
           <Tooltip>
