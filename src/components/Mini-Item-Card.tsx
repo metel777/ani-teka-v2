@@ -25,11 +25,11 @@ export default function Card({
 }: Card) {
   return (
     <main
-      className="relative flex max-w-[100px] flex-shrink-0 cursor-pointer flex-col overflow-hidden  rounded-md bg-bg-primary-light text-sm transition hover:bg-bg-secondary-light hover:shadow-xs dark:bg-g.warm-800/60 dark:hover:bg-bg-secondary-dark"
+      className="relative flex max-w-[100px] flex-shrink-0 cursor-pointer flex-col overflow-hidden  rounded-md bg-[--fill] text-sm transition hover:bg-bg-secondary-light  dark:bg-g.warm-800/60 dark:hover:bg-bg-secondary-dark"
       key={textAbove}
     >
-      <Link href={href}>
-        <p className="line-clamp-3 flex w-full items-center justify-center gap-2 p-1 text-center text-xs font-semibold">
+      <Link href={href} className="">
+        <p className="line-clamp-3 flex w-full items-center justify-center gap-2 p-1 text-center text-xs font-semibold row-span-1">
           {rec ? (
             <>
               <ThumbsUp size={17} /> {textAbove}

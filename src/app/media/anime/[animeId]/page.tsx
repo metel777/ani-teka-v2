@@ -12,6 +12,9 @@ import { Plus, Youtube } from "lucide-react"
 import { getFullDataOnMedia } from "@/utils/getFullDataOnMedia"
 import { months } from "@/lib/months"
 import AddToList from "@/components/AddToList"
+import { validateSession } from "@/actions/auth"
+import { db, userLists } from "@/db/schema"
+import { and, eq } from "drizzle-orm"
 
 type Props = {
   params: {
@@ -22,8 +25,9 @@ type Props = {
 export default async function AnimePage({ params }: Props) {
   const paramAnimeId = params.animeId
   const data = await getFullDataOnMedia(paramAnimeId)
-
   const media = data.data.Media
+
+  const session = await validateSession()
 
   const {
     description,
@@ -43,7 +47,19 @@ export default async function AnimePage({ params }: Props) {
     studios,
     startDate,
     endDate,
+    id,
   } = media
+
+  const mediaInUserList = await db
+    .select()
+    .from(userLists)
+    .where(
+      and(
+        eq(userLists.userId, session?.user?.id as string),
+        eq(userLists.media_id, id as number),
+      ),
+    )
+  
 
   return (
     <main className="mb flex flex-col gap-10">
@@ -85,9 +101,11 @@ export default async function AnimePage({ params }: Props) {
               </div>
             )}
             <AddToList
+              mediaInUserList={mediaInUserList}
               mediaType={type}
               episodes={episodes}
               mediaId={paramAnimeId}
+              session={session}
             />
           </section>
           <section className="mt-5 flex flex-col gap-2">
@@ -183,8 +201,8 @@ export default async function AnimePage({ params }: Props) {
               {media.characters.edges.map((item) => (
                 <Card
                   key={item.id as Key}
-                  textAbove={item.role}
-                  textBelow={item.node.name.userPreferred}
+                  textAbove={item.node.name.userPreferred}
+                  textBelow={item.role}
                   image={item.node.image.large}
                   href={`/character/${item.node.id}`}
                 />
@@ -199,8 +217,8 @@ export default async function AnimePage({ params }: Props) {
               {media.staff.edges.map((item) => (
                 <Card
                   key={item.id as Key}
-                  textAbove={item.role}
-                  textBelow={item.node.name.userPreferred}
+                  textAbove={item.node.name.userPreferred}
+                  textBelow={item.role}
                   image={item.node.image.medium}
                   href={`/person/${item.node.id}`}
                 />

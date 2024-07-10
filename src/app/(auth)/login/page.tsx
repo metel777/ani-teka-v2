@@ -1,5 +1,5 @@
 import { Title1 } from "@/components/Titles"
-import { AlternativeLoginForm, LoginForm } from "./LoginForm"
+import {  LoginForm } from "./LoginForm"
 
 type Props = {}
 export default function page({}: Props) {
@@ -7,7 +7,7 @@ export default function page({}: Props) {
     <main className="h-screen">
       <section className=" m-auto mt-24 w-[300px]">
         <Title1>Sign In</Title1>
-        <AlternativeLoginForm />
+        <LoginForm />
       </section>
     </main>
   )

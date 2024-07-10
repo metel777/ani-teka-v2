@@ -1,4 +1,3 @@
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,28 +18,21 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { LibraryBig, LogOut, Settings, UserRound } from "lucide-react"
-import { doLogout } from "@/actions"
 import { ModeToggle } from "../ModeToggle"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { logout } from "@/actions/auth"
+import { Button } from "../ui/button"
 
 type Props = {
-  img: string
   name: string
 }
-export default function ProfileDropdown({ img, name }: Props) {
-
+export default function ProfileDropdown({ name }: Props) {
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <img
-            alt="User picture"
-            className="rounded-md"
-            src={img}
-            width={32}
-            height={32}
-          />
+          <Button>Profile</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="border-g.warm-200 p-0 shadow-xl">
           <DropdownMenuLabel className="flex items-center gap-2 ">
@@ -63,13 +55,13 @@ export default function ProfileDropdown({ img, name }: Props) {
                   <LogOut size={15} /> Logout
                 </AlertDialogTrigger>
                 <AlertDialogContent className="w-min">
-                  <form action={doLogout}>
+                  <form action={logout}>
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction  type="submit">
+                      <AlertDialogAction type="submit">
                         Continue
                       </AlertDialogAction>
                     </AlertDialogFooter>

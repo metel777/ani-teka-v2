@@ -1,5 +1,4 @@
 "use client"
-import { motion } from "framer-motion"
 import Image from "next/image"
 import {
   HoverCard,
@@ -9,8 +8,8 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
 import { media } from "@/types/media"
-import { useState } from "react"
 import Link from "next/link"
+import AnimatedMotionContainer from "./AnimatedMotionContainer"
 
 export default function MediaCard({ item }: { item: media }) {
   const { push } = useRouter()
@@ -34,39 +33,26 @@ export default function MediaCard({ item }: { item: media }) {
   } = item
   const mediaType = type?.toLowerCase()
 
-  // const [imageLoading, setImageLoading] = useState(true)
-
   return (
     <HoverCard>
       <HoverCardTrigger className="w-fit">
         <main
           onClick={() => push(`/media/${mediaType}/${id}`)}
-          className="relative w-[160px] min-w-[210px] cursor-pointer transition-all  hover:text-[--brand-main] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]"
+          className="relative w-[200px] cursor-pointer  transition-all hover:text-[--brand-main] sm:w-[200px] md:w-[190px] lg:w-[180px]"
           key={id}
         >
-          <div className="items-center justify-center  overflow-hidden rounded-lg border border-[--stroke-weak] bg-[--fill] ">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: "backIn" }}
-            >
-              <Image
-                key={Math.random()}
-                alt={title?.english}
-                width={300}
-                priority={true}
-                height={550}
-                className={`h-[300px] max-h-[300px] w-[100px] min-w-[210px]  transition-all duration-1000  sm:max-h-[250px] sm:min-w-[180px] md:min-w-[190px] lg:min-w-[180px]`}
-                src={coverImage?.large}
-                quality={50}
-                // onLoad={() => setImageLoading(false)}
-              />
-            </motion.div>
-          </div>
+          <AnimatedMotionContainer>
+            <Image
+              key={Math.random()}
+              alt={title?.english}
+              fill
+              priority={true}
+              src={coverImage?.large}
+            />
+          </AnimatedMotionContainer>
           <p className="line-clamp-1 text-sm">
             {title?.english || title?.romaji}
           </p>
-
           {/* if averageScore name do display */}
           {averageScore && (
             <p
@@ -123,7 +109,7 @@ export default function MediaCard({ item }: { item: media }) {
         </main>
       </HoverCardTrigger>
       <HoverCardContent
-        className="w-[300px] overflow-hidden border-[--stroke-secondary] p-0 text-sm text-[--text-secondary] shadow-lg"
+        className="w-[250px] sm:w-[300px] overflow-hidden border-[--stroke-secondary] p-0 text-sm text-[--text-secondary] shadow-lg"
         side="right"
         align="start"
       >
@@ -166,8 +152,8 @@ function HoverContent({
             {/* if studios name do display */}
             {studios?.nodes[0]?.name && (
               <>
-                <span className="hover:underline">
-                  <Link href={`/studio/${studios.nodes[0].id}`}>
+                <span className="hover:underline ">
+                  <Link className="line-clamp-1" href={`/studio/${studios.nodes[0].id}`}>
                     {studios.nodes[0].name}
                   </Link>
                 </span>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/ui/themeProvider"
 import Header from "@/components/Header/Header"
+import { validateSession } from "@/actions/auth"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -16,6 +17,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = await validateSession()
 
   return (
     <html lang="en">
@@ -29,7 +31,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <div className="logo_mark"></div>
-          <Header />
+          <Header session={session as any} />
           <div className="mx-auto mt-5 max-w-[1100px] overflow-hidden">
             {children}
           </div>

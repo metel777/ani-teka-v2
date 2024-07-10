@@ -1,3 +1,10 @@
+CREATE TABLE `session` (
+	`id` text PRIMARY KEY NOT NULL,
+	`user_id` text NOT NULL,
+	`expires_at` integer NOT NULL,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `users_lists` (
 	`user_id` text,
 	`media_type` text,
@@ -10,6 +17,7 @@ CREATE TABLE `users_lists` (
 --> statement-breakpoint
 CREATE TABLE `users` (
 	`id` text PRIMARY KEY NOT NULL,
+	`username` text,
 	`email` text,
-	`name` text
+	`password_hash` text
 );

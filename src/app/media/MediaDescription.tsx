@@ -12,7 +12,7 @@ export default function MediaDescription({ description }: Props) {
     return input?.replace(/<[^>]*>/g, "")
   }
   const cleanedDescription = removeHtmlTags(description)
-  const { ref, overflow } = useOverflowDetector({})
+  // const { ref, overflow } = useOverflowDetector({})
 
   return (
     <>
@@ -23,11 +23,11 @@ export default function MediaDescription({ description }: Props) {
             <b>Description:</b>
           </span>
 
-          <div ref={ref} className="max-h-48 overflow-y-auto pb-12">
+          <div  className="max-h-48 overflow-y-auto pb-12">
             {cleanedDescription}
-            {overflow && (
+            {/* {overflow && (
               <div className="absolute bottom-0 h-20 w-full bg-gradient-to-t from-bg-primary-light dark:from-bg-primary-dark" />
-            )}
+            )} */}
           </div>
         </div>
       )}

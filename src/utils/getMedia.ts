@@ -3,9 +3,6 @@
 import { MediaForHome } from "../types/media"
 
 
-
-
-
 export async function getMedia(page?: string, search?: string, order?: string, genre?: string | string[], tag?: string | string[]): Promise<MediaForHome> {
 
   const query = `
@@ -73,12 +70,8 @@ export async function getMedia(page?: string, search?: string, order?: string, g
         format 
         status 
         episodes 
-        genres
         description 
         averageScore 
-        duration 
-        popularity
-        favourites 
       }
     }
   }

@@ -24,87 +24,110 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "./ui/button"
-import { ChevronsUpDown, Plus } from "lucide-react"
-import { useEffect, useState } from "react"
-import { mediaAddLists } from "@/lib/mediaAddLists"
-import { Session } from "next-auth"
-import { AlternativeLoginForm } from "@/app/(auth)/login/LoginForm"
+import { ChevronsUpDown, Pencil, Plus } from "lucide-react"
+import { ReactNode, useState } from "react"
+
 import { addToList } from "@/actions/list"
 
-type Props = { mediaId: string; mediaType: "ANIME" | "MANGA"; episodes: any }
-export default function AddToList({ mediaId, mediaType, episodes }: Props) {
+import { User, Session } from "lucia"
+import { LoginForm } from "@/app/(auth)/login/LoginForm"
+import { userListOptions } from "@/types/userList"
+
+const listsOptions = ["planning", "watching", "paused", "dropped", "completed"]
+
+interface userLists {
+  userId: string | null
+  mediaType: "anime" | "manga" | null
+  media_id: number | null
+  list: userListOptions
+  score: number | null
+  watchedEpisodes: number | null
+}
+
+type Props = {
+  mediaId: string
+  mediaType: "ANIME" | "MANGA"
+  episodes: any
+  session: { user: User | null; session: Session | null }
+  mediaInUserList: userLists[]
+}
+export default function AddToList({
+  mediaId,
+  mediaType,
+  episodes,
+  session,
+  mediaInUserList,
+}: Props) {
   const [selectedList, setSelectedList] = useState("")
   const [score, setScore] = useState(0)
   const [watchedEpisodes, setWatchedEpisodes] = useState(0)
 
-  
-
   function handleDeleteFromList() {}
 
-  function name() {}
-  name()
+  if (!session.user?.id) {
+    return (
+      <Dialog>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DialogTrigger asChild>
+                <Button className=" h-min p-1" variant="warm-primary">
+                  <Plus />
+                </Button>
+              </DialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Add to your list</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="mb-5">Add media to your list</DialogTitle>
+          </DialogHeader>
 
-  // if (!session) {
-  //   return (
-  //     <Dialog>
-  //       <TooltipProvider>
-  //         <Tooltip>
-  //           <TooltipTrigger asChild>
-  //             <DialogTrigger asChild>
-  //               <Button className=" h-min p-1" variant="warm-primary">
-  //                 <Plus />
-  //               </Button>
-  //             </DialogTrigger>
-  //           </TooltipTrigger>
-  //           <TooltipContent>
-  //             <p>Add to your list</p>
-  //           </TooltipContent>
-  //         </Tooltip>
-  //       </TooltipProvider>
-  //       <DialogContent>
-  //         <DialogHeader>
-  //           <DialogTitle className="mb-5">Add media to your list</DialogTitle>
-  //         </DialogHeader>
+          <LoginForm />
+        </DialogContent>
+      </Dialog>
+    )
+  }
 
-  //         <AlternativeLoginForm />
-  //       </DialogContent>
-  //     </Dialog>
-  //   )
-  // }
+  const isMediaInUserList = mediaInUserList.length > 0 ? true : false
+
   return (
     <Dialog>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DialogTrigger asChild>
-              <Button className=" h-min p-1" variant="warm-primary">
-                <Plus />
-              </Button>
-            </DialogTrigger>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Add to your list</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-
+      <DialogTrigger asChild>
+        <Button className=" h-min p-1" variant="warm-primary">
+          {isMediaInUserList ? <Pencil /> : <Plus />}
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="mb-5">Add media to your list</DialogTitle>
+          <DialogTitle className="mb-5">
+            {isMediaInUserList
+              ? "Edit media in your list"
+              : "Add media to your list"}
+          </DialogTitle>
         </DialogHeader>
         <main className="flex justify-between">
-          {/* List */}
           <section className="">
             <Label htmlFor="score">List</Label>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-[120px]">
-                  {!selectedList ? "Open list" : selectedList}
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
+              <DropdownMenuTrigger className="capitalize" asChild>
+                {isMediaInUserList ? (
+                  <Button variant="dropdown" className="w-[120px]">
+                    {mediaInUserList[0].list}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                ) : (
+                  <Button variant="dropdown" className="w-[120px]">
+                    {!selectedList ? "Open list" : selectedList}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {mediaAddLists.map((item, index) => (
+              <DropdownMenuContent className="capitalize">
+                {listsOptions.map((item, index) => (
                   <DropdownMenuCheckboxItem
                     key={index}
                     checked={selectedList === item}
@@ -116,7 +139,6 @@ export default function AddToList({ mediaId, mediaType, episodes }: Props) {
               </DropdownMenuContent>
             </DropdownMenu>
           </section>
-          {/* List end */}
           <section>
             <Label htmlFor="score">Score</Label>
             <Input
@@ -146,6 +168,7 @@ export default function AddToList({ mediaId, mediaType, episodes }: Props) {
           </Button>
           <form action={addToList}>
             <input type="hidden" name="mediaId" value={mediaId} />
+            <input type="hidden" name="maxEpisodes" value={episodes} />
             <input
               type="hidden"
               name="mediaType"
@@ -163,9 +186,9 @@ export default function AddToList({ mediaId, mediaType, episodes }: Props) {
               name="list"
               value={selectedList.toLowerCase()}
             />
-            {/* <DialogClose asChild> */}
+            <DialogClose asChild>
               <Button type="submit">Save</Button>
-            {/* </DialogClose> */}
+            </DialogClose>
           </form>
         </DialogFooter>
       </DialogContent>

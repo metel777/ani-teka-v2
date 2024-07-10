@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 import {
   Pagination,
@@ -23,12 +22,13 @@ export default function NavigatePagination({
 }) {
   const { lastPage, hasNextPage } = pageInfo
   const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
   const pageParams = searchParams.get("page") as string
   const pathname = usePathname()
   const { push } = useRouter()
 
-  const params = new URLSearchParams(searchParams)
   let currentPage = Number(pageParams) || 1
+  // AM I GENIUS???????????????? HOW DID I COME UP WITH THIS LOGIC
   const totalPages = Array.from({ length: pageInfo.lastPage }, (_, i) => i + 1)
   const cuttedPages = totalPages.slice(currentPage - 1, currentPage + 5)
 
@@ -67,74 +67,75 @@ export default function NavigatePagination({
     return (
       <main>
         <Pagination>
-          <PaginationContent>
+          <PaginationContent className="flex">
             <PaginationItem>
               <PaginationPrevious onClick={handlePrevPage} />
             </PaginationItem>
+
             {totalPages.map((item, index) => (
               <PaginationItem key={item}>
                 <PaginationLink
-                  className={currentPage === item ? "border" : ""}
+                  className={currentPage === item ? "border bg-white" : ""}
                   onClick={() => handleNavigateToPage(item)}
                 >
                   {item}
                 </PaginationLink>
               </PaginationItem>
             ))}
-            <PaginationItem>
-              <PaginationNext onClick={handleNextPage} />
-            </PaginationItem>
           </PaginationContent>
         </Pagination>
+        <PaginationItem>
+          <PaginationNext onClick={handleNextPage} />
+        </PaginationItem>
       </main>
     )
   }
 
   return (
-      <Pagination>
-        <PaginationContent>
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious onClick={handlePrevPage} />
+        </PaginationItem>
+        {currentPage >= 2 && (
           <PaginationItem>
-            <PaginationPrevious onClick={handlePrevPage} />
+            <PaginationLink href={`${pathname}?page=1`}>1</PaginationLink>
           </PaginationItem>
-          {currentPage >= 2 && (
-            <PaginationItem>
-              <PaginationLink href={`${pathname}?page=1`}>1</PaginationLink>
+        )}
+        {currentPage >= 2 && (
+          <>
+            <PaginationItem className="cursor-default">
+              <PaginationEllipsis />
             </PaginationItem>
-          )}
-          {currentPage >= 2 && (
-            <>
-              <PaginationItem className="cursor-default">
-                <PaginationEllipsis />
-              </PaginationItem>
-            </>
-          )}
-          {cuttedPages.map((item, index) => (
-            <PaginationItem key={item}>
-              <PaginationLink
-                className={currentPage === item ? "border" : ""}
-                onClick={() => handleNavigateToPage(item)}
-              >
-                {item}
+          </>
+        )}
+        {cuttedPages.map((item, index) => (
+          <PaginationItem key={item}>
+            <PaginationLink
+              className={currentPage === item ? "border" : ""}
+              onClick={() => handleNavigateToPage(item)}
+            >
+              {item}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+        {lastPage > 6 && (
+          <>
+            <PaginationItem className="cursor-default">
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href={`${pathname}?page=${lastPage}`}>
+                {lastPage}
               </PaginationLink>
             </PaginationItem>
-          ))}
-          {lastPage > 6 && (
-            <>
-              <PaginationItem className="cursor-default">
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href={`${pathname}?page=${lastPage}`}>
-                  {lastPage}
-                </PaginationLink>
-              </PaginationItem>
-            </>
-          )}
+          </>
+        )}
 
-          <PaginationItem>
-            <PaginationNext onClick={handleNextPage} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+        <PaginationItem>
+          <PaginationNext onClick={handleNextPage} />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   )
 }

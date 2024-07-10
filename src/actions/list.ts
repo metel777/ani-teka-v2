@@ -1,21 +1,57 @@
 'use server'
 
-import { db } from "@/db/db";
-import { userLists } from "@/db/schema";
+
+import { db, userLists } from "@/db/schema";
+import { validateSession } from "./auth";
+import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export async function addToList(formData: FormData) {
-    const mediaId = formData.get('mediaId') as string
+    revalidatePath('/user/library')
+
+    const mediaId = Number(formData.get('mediaId'))
+    const maxEpisodes = Number(formData.get('maxEpisodes'))
+    const watchedEpisodes = Number(formData.get('watchedEpisodes'))
+    const validateWatchedEpisodes = watchedEpisodes > maxEpisodes ? maxEpisodes : watchedEpisodes
+
+    const score = Number(formData.get('score'))
     const mediaType = formData.get('mediaType') as 'anime' | 'manga'
-    const watchedEpisodes = formData.get('watchedEpisodes') as string
-    const score = formData.get('score') as string
     const list = formData.get('list') as 'planning' | 'watching' | 'paused' | 'dropped'
 
-    await db.insert(userLists).values({
-        userId: '1',
-        list: list,
-        media_id: Number(mediaId),
-        mediaType: mediaType,
-        score: Number(score),
-        watchedEpisodes: Number(watchedEpisodes)
-    })
+    const session = await validateSession()
+
+    try {
+        const existingMediaInList = await db.select().from(userLists).where(eq(userLists.media_id, mediaId))
+
+        if (existingMediaInList.length > 0) {
+            await db.update(userLists)
+                .set({
+                    score: score > 10 ? 10 : score,
+                    list,
+                    watchedEpisodes: validateWatchedEpisodes
+                })
+                .where(and(eq(userLists.userId, session.user?.id as string), eq(userLists.media_id, mediaId)))
+        } else {
+            await db.insert(userLists).values({
+                userId: session.user?.id,
+                media_id: mediaId,
+                score: score > 10 ? 10 : score,
+                list,
+                mediaType,
+                watchedEpisodes: validateWatchedEpisodes,
+            })
+        }
+    } catch (error) {
+        console.log('ERROR ADDING TO LIST')
+    }
+
 }
+
+export async function getAllItemsFromUserList() {
+    const session = await validateSession()
+    const userId = session?.user?.id as string
+
+    return await db.select().from(userLists).where(eq(userLists.userId, userId))
+
+}
+
