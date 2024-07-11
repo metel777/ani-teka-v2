@@ -17,7 +17,7 @@ export const userLists = sqliteTable('users_lists', {
     userId: text('user_id').references(() => users.id),
     mediaType: text('media_type', { enum: ['anime', 'manga'] }),
     media_id: int('media_id'),
-    list: text('list', { enum: ['planning', 'watching', 'paused', 'dropped', 'completed'] }),
+    list: text('list', { enum: ['planning', 'watching', 'paused', 'dropped', 'completed'] }).notNull(),
     score: int('score'),
     watchedEpisodes: int('watched_episodes')
 })
@@ -28,7 +28,8 @@ export const sessionsTable = sqliteTable("session", {
     userId: text("user_id")
         .notNull()
         .references(() => users.id),
-    expiresAt: integer("expires_at").notNull()
+    expiresAt: integer("expires_at").notNull(),
+    username: text("username"),
 });
 
 

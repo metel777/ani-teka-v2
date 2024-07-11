@@ -9,19 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-gradient-to-t  from-indigo-500 to-indigo-600 text-white shadow-glance border border-indigo-700 hover:from-indigo-600 hover:to-indigo-700 active:shadow-none active:from-indigo-800 active:to-indigo-900",
+        default: " shadow-neu-shadow bg-neu-btn",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border border-[--stroke-strong] bg-white hover:bg-g.warm-200 hover:text-g.warm-800 dark:bg-g.warm-900 dark:hover:text-g.warm-400",
-        
+
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-[--fill]",
         link: "text-primary underline-offset-4 hover:underline",
-        "warm-primary":
-          "bg-[--fill] border-2 border-[--stroke-strong]",
+        "warm-primary": "bg-[--fill] border-2 border-[--stroke-strong]",
         "warm-secondary":
           "bg-g.warm-200 hover:bg-g.warm-300 dark:bg-g.warm-800 active:bg-g.warm-200 dark:active:bg-g.warm-800  hover:dark:bg-g.warm-600/40",
         google: "border hover:bg-g.warm-100 bg-white dark:hover:bg-g.warm-200",

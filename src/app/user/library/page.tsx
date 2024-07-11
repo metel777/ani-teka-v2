@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getMediaFromUserList } from "@/utils/getMediaFromUserList"
 import { GigaTab } from "./Tabs"
 import { userListOptions } from "@/types/userList"
+import { TabListItemWithCount } from "./components"
 
 const userListOption = [
   "all",
@@ -25,15 +26,10 @@ export default async function UserListsPage() {
             defaultValue="all"
             className=" relative w-fit"
           >
-            <TabsList className="flex h-fit flex-col">
+            <TabsList className="flex h-fit w-[150px] flex-col">
               {userListOption.map((item, index) => (
-                <TabsTrigger
-                  className="w-full capitalize"
-                  key={index}
-                  value={item}
-                >
-                  {item}
-                </TabsTrigger>
+                <TabListItemWithCount option={item} key={index}/>
+              
               ))}
             </TabsList>
             {userListOption.map((item) => (

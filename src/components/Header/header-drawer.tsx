@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { ModeToggleMobile } from "@/components/ModeToggle"
+import { ModeToggleMobile } from "@/components/ThemeToggle"
 
 import { Title2 } from "../Titles"
 

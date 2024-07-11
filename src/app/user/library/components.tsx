@@ -1,10 +1,13 @@
-import { TabsContent } from "@/components/ui/tabs"
+import { validateSession } from "@/actions/auth"
+import { TabsContent, TabsTrigger } from "@/components/ui/tabs"
+import { db, userLists } from "@/db/schema"
+import { and, eq } from "drizzle-orm"
 
-type Props = { children: React.ReactNode, value: any }
+type Props = { children: React.ReactNode; value: any }
 export function TabContentLayout({ children, value }: Props) {
   return (
     <TabsContent
-      className=" ml-5 grid grid-cols-5 gap-4 text-sm text-[--text-secondary]"
+      className=" ml-5 grid grid-cols-4 gap-6 text-sm text-[--text-secondary]"
       value={value}
     >
       {children}
@@ -12,6 +15,33 @@ export function TabContentLayout({ children, value }: Props) {
   )
 }
 
-export function UserListCard({ children }: Props) {
+export function UserListCard({ children }: Props) {}
 
+export async function TabListItemWithCount({ option }: { option: string }) {
+  const session = await validateSession()
+  const userId = session.user?.id as string
+
+  let query = await db
+    .select()
+    .from(userLists)
+    .where(
+      and(
+        eq(userLists.userId, userId),
+        eq(userLists.list, option as any),
+      ),
+    )
+  if (option === "all") {
+    query = await db
+      .select()
+      .from(userLists)
+      .where(eq(userLists.userId, userId))
+  }
+  return (
+    <TabsTrigger className="w-full capitalize" value={option}>
+      <div className="flex justify-between">
+        <span>{option}</span>
+        <span>{query.length}</span>
+      </div>
+    </TabsTrigger>
+  )
 }

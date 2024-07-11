@@ -13,6 +13,8 @@ export default async function Header({
 }: {
   session: Session | { user: null; session: null }
 }) {
+
+
   return (
     <div className="z-999 relative  bg-header-bg text-text-secondary-light ">
       <div className="mx-auto flex max-w-[1100px] items-center justify-between p-4">

@@ -59,7 +59,6 @@ export default async function AnimePage({ params }: Props) {
         eq(userLists.media_id, id as number),
       ),
     )
-  
 
   return (
     <main className="mb flex flex-col gap-10">
@@ -79,10 +78,14 @@ export default async function AnimePage({ params }: Props) {
 
           {/* ::::::::::::::::::::::ESSENTIAL INFO SESSION::::::::::::::::::::::: */}
           <section className="mt-5 flex items-center gap-4">
-            <Button variant="warm-primary" className="flex gap-2">
-              <Youtube />
-              Trailer
-            </Button>
+            <AddToList
+              mediaInUserList={mediaInUserList}
+              mediaType={type}
+              episodes={episodes}
+              mediaId={paramAnimeId}
+              session={session}
+            />
+
             {averageScore && (
               <div>
                 <b className="text-[--text-secondary]">Average score:</b>{" "}
@@ -100,13 +103,10 @@ export default async function AnimePage({ params }: Props) {
                 <b>Episodes:</b> {media.episodes.toString()}
               </div>
             )}
-            <AddToList
-              mediaInUserList={mediaInUserList}
-              mediaType={type}
-              episodes={episodes}
-              mediaId={paramAnimeId}
-              session={session}
-            />
+            <Button variant="warm-primary" className="flex gap-2">
+              <Youtube />
+              Trailer
+            </Button>
           </section>
           <section className="mt-5 flex flex-col gap-2">
             <MediaDescription description={description} />
@@ -128,20 +128,17 @@ export default async function AnimePage({ params }: Props) {
             </div>
             {season && seasonYear && (
               <div>
-                {" "}
                 <b>Season:</b> {season?.toString()} {seasonYear.toString()}
               </div>
             )}
             {format && (
               <div>
-                {" "}
                 <b>Format:</b> {format.toString()}
               </div>
             )}
 
             {studios && (
               <div>
-                {" "}
                 <b>Studio:</b>{" "}
                 {studios.nodes.map((studio) => (
                   <Link
@@ -156,7 +153,6 @@ export default async function AnimePage({ params }: Props) {
             )}
             {genres && (
               <div className="flex flex-wrap gap-1">
-                {" "}
                 <b>Genres:</b>{" "}
                 {genres.map((genre) => (
                   <Badge key={genre} className="cursor-default">

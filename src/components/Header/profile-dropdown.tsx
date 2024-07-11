@@ -18,26 +18,26 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { LibraryBig, LogOut, Settings, UserRound } from "lucide-react"
-import { ModeToggle } from "../ModeToggle"
+import { ThemeToggle } from "../ThemeToggle"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { logout } from "@/actions/auth"
 import { Button } from "../ui/button"
+import { PrimaryBtn } from "../Buttons"
 
 type Props = {
-  name: string
+  username: string
 }
-export default function ProfileDropdown({ name }: Props) {
+export default function ProfileDropdown({ username }: Props) {
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button>Profile</Button>
+          <PrimaryBtn>Profile</PrimaryBtn>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="border-g.warm-200 p-0 shadow-xl">
           <DropdownMenuLabel className="flex items-center gap-2 ">
             <UserRound size={15} />
-            {name}
+            {username}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <section className="p-1">
@@ -71,7 +71,7 @@ export default function ProfileDropdown({ name }: Props) {
             </DropdownMenuItem>
           </section>
           <div className="text-md flex justify-center bg-g.warm-100 p-1 text-g.warm-500 dark:bg-g.warm-900">
-            <ModeToggle />
+            <ThemeToggle />
           </div>
         </DropdownMenuContent>
       </DropdownMenu>

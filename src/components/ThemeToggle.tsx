@@ -4,11 +4,11 @@ import { Monitor, Moon, MoonIcon, Sun, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "./ui/button"
 
-export function ModeToggle() {
+export function ThemeToggle() {
   const { setTheme, theme } = useTheme()
 
   return (
-    <main className="flex gap-1 rounded-full border border-g.warm-300 p-1 shadow-glance-authkit dark:border-transparent">
+    <main className="flex gap-1 h-fit w-fit rounded-full border border-g.warm-300 p-1 shadow-glance-authkit dark:border-transparent">
       <button
         onClick={() => setTheme("dark")}
         className={`rounded-full  border border-transparent p-1 hover:bg-g.warm-300 ${

@@ -2,6 +2,7 @@ CREATE TABLE `session` (
 	`id` text PRIMARY KEY NOT NULL,
 	`user_id` text NOT NULL,
 	`expires_at` integer NOT NULL,
+	`username` text,
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -9,7 +10,7 @@ CREATE TABLE `users_lists` (
 	`user_id` text,
 	`media_type` text,
 	`media_id` integer,
-	`list` text,
+	`list` text NOT NULL,
 	`score` integer,
 	`watched_episodes` integer,
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action

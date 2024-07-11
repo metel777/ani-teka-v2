@@ -27,7 +27,7 @@ export async function addToList(formData: FormData) {
             await db.update(userLists)
                 .set({
                     score: score > 10 ? 10 : score,
-                    list,
+                    list: list || 'planning',
                     watchedEpisodes: validateWatchedEpisodes
                 })
                 .where(and(eq(userLists.userId, session.user?.id as string), eq(userLists.media_id, mediaId)))
@@ -36,7 +36,7 @@ export async function addToList(formData: FormData) {
                 userId: session.user?.id,
                 media_id: mediaId,
                 score: score > 10 ? 10 : score,
-                list,
+                list: list || 'planning',
                 mediaType,
                 watchedEpisodes: validateWatchedEpisodes,
             })
@@ -45,6 +45,16 @@ export async function addToList(formData: FormData) {
         console.log('ERROR ADDING TO LIST')
     }
 
+}
+
+export async function deleteFromList(formData: FormData) {
+    const session = await validateSession()
+    const userId = session?.user?.id as string
+    
+    const mediaId = Number(formData.get('mediaId'))
+
+    console.log('DELETE ACTION::::::::::::::::::::', mediaId)
+    await db.delete(userLists).where(and(eq(userLists.userId, userId), eq(userLists.media_id, mediaId )))
 }
 
 export async function getAllItemsFromUserList() {

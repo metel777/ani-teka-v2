@@ -44,18 +44,13 @@ export async function register(formData: FormData): Promise<ActionResult> {
     const userId = generateIdFromEntropySize(10); // 16 characters long
 
     // TODO: check if username is already used
-    console.log('::::::::::::USER ID::::::::::', userId)
-    console.log('::::::::::::EMAIL::::::::::', email)
-    console.log('::::::::::::PASSWORD HASH::::::::::', passwordHash)
-    console.log('::::::::::::USERNAME::::::::::', username)
     try {
-        await db.insert(users).values({ id: userId, email: email, passwordHash: passwordHash, username: username })
-
+        await db.insert(users).values({ id: userId, email, passwordHash, username})
     } catch (error) {
 
     }
 
-    const session = await lucia.createSession(userId, {});
+    const session = await lucia.createSession(userId, username, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
     cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
     return redirect("/");
@@ -103,7 +98,6 @@ export async function validateSession(): Promise<{ user: User, session: Session 
     }
 
     const result = await lucia.validateSession(sessionId);
-    // next.js throws when you attempt to set cookie when rendering page
     try {
         if (result.session && result.session.fresh) {
             const sessionCookie = lucia.createSessionCookie(result.session.id);

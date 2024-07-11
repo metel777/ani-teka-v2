@@ -28,7 +28,8 @@ export default function NavigatePagination({
   const { push } = useRouter()
 
   let currentPage = Number(pageParams) || 1
-  // AM I GENIUS???????????????? HOW DID I COME UP WITH THIS LOGIC
+
+  // AM I GENIUS???????????????? HOW DID I COME UP WITH THIS LOGIC:::::::::::::::::::::::::::::::::::::::
   const totalPages = Array.from({ length: pageInfo.lastPage }, (_, i) => i + 1)
   const cuttedPages = totalPages.slice(currentPage - 1, currentPage + 5)
 

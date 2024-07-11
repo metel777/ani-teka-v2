@@ -26,12 +26,12 @@ import { Label } from "@/components/ui/label"
 import { Button } from "./ui/button"
 import { ChevronsUpDown, Pencil, Plus } from "lucide-react"
 import { ReactNode, useState } from "react"
-
-import { addToList } from "@/actions/list"
-
+import { addToList, deleteFromList } from "@/actions/list"
 import { User, Session } from "lucia"
 import { LoginForm } from "@/app/(auth)/login/LoginForm"
 import { userListOptions } from "@/types/userList"
+import { toast } from "./ui/use-toast"
+import { Title1 } from "./Titles"
 
 const listsOptions = ["planning", "watching", "paused", "dropped", "completed"]
 
@@ -45,12 +45,13 @@ interface userLists {
 }
 
 type Props = {
-  mediaId: string
+  mediaId: number
   mediaType: "ANIME" | "MANGA"
   episodes: any
   session: { user: User | null; session: Session | null }
   mediaInUserList: userLists[]
 }
+
 export default function AddToList({
   mediaId,
   mediaType,
@@ -62,30 +63,16 @@ export default function AddToList({
   const [score, setScore] = useState(0)
   const [watchedEpisodes, setWatchedEpisodes] = useState(0)
 
-  function handleDeleteFromList() {}
-
   if (!session.user?.id) {
     return (
       <Dialog>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <DialogTrigger asChild>
-                <Button className=" h-min p-1" variant="warm-primary">
-                  <Plus />
-                </Button>
-              </DialogTrigger>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Add to your list</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <DialogTrigger asChild>
+          <Button className=" h-min p-1" variant="warm-primary">
+            <Plus />
+          </Button>
+        </DialogTrigger>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle className="mb-5">Add media to your list</DialogTitle>
-          </DialogHeader>
-
+          <Title1>Login</Title1>
           <LoginForm />
         </DialogContent>
       </Dialog>
@@ -110,21 +97,27 @@ export default function AddToList({
           </DialogTitle>
         </DialogHeader>
         <main className="flex justify-between">
-          <section className="">
+          <div>
             <Label htmlFor="score">List</Label>
             <DropdownMenu>
               <DropdownMenuTrigger className="capitalize" asChild>
-                {isMediaInUserList ? (
+                {/* if media in user list - display list name. else - display selected ,by user, list */}
+
+                {/* {isMediaInUserList ? (
                   <Button variant="dropdown" className="w-[120px]">
                     {mediaInUserList[0].list}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
-                ) : (
-                  <Button variant="dropdown" className="w-[120px]">
-                    {!selectedList ? "Open list" : selectedList}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Button>
-                )}
+                ) : ( */}
+                <Button variant="dropdown" className="w-[120px]">
+                  {isMediaInUserList
+                    ? mediaInUserList[0].list
+                    : !selectedList
+                      ? "Open list"
+                      : selectedList}
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+                {/* )} */}
               </DropdownMenuTrigger>
               <DropdownMenuContent className="capitalize">
                 {listsOptions.map((item, index) => (
@@ -138,8 +131,8 @@ export default function AddToList({
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-          </section>
-          <section>
+          </div>
+          <div>
             <Label htmlFor="score">Score</Label>
             <Input
               onChange={(e) => setScore(e.target.valueAsNumber)}
@@ -149,8 +142,8 @@ export default function AddToList({
               max={10}
               min={0}
             />
-          </section>
-          <section>
+          </div>
+          <div>
             <Label htmlFor="episodes">Watched episodes</Label>
             <Input
               onChange={(e) => setWatchedEpisodes(e.target.valueAsNumber)}
@@ -160,12 +153,14 @@ export default function AddToList({
               max={episodes}
               min={0}
             />
-          </section>
+          </div>
         </main>
         <DialogFooter className="mt-10">
-          <Button onClick={handleDeleteFromList} variant="destructive">
-            Delete from list
-          </Button>
+          <form action={deleteFromList}>
+            <Button variant="destructive">Delete from list</Button>
+            <input name="mediaId" type="hidden" value={mediaId} />
+          </form>
+          {/* ::::::::::::::::::::::::::::::::::MAIN FORM::::::::::::::::::::::::::: */}
           <form action={addToList}>
             <input type="hidden" name="mediaId" value={mediaId} />
             <input type="hidden" name="maxEpisodes" value={episodes} />
@@ -177,7 +172,7 @@ export default function AddToList({
             <input
               type="hidden"
               name="watchedEpisodes"
-              value={watchedEpisodes}
+              value={mediaInUserList[0]?.watchedEpisodes || watchedEpisodes}
               max={episodes}
             />
             <input type="hidden" name="score" value={score} />
@@ -187,7 +182,19 @@ export default function AddToList({
               value={selectedList.toLowerCase()}
             />
             <DialogClose asChild>
-              <Button type="submit">Save</Button>
+              <Button
+                type="submit"
+                onClick={() => {
+                  toast({
+                    title: "Succed",
+                    description: "Media succesfully added to your list",
+                    variant: "succed",
+                    duration: 2500,
+                  })
+                }}
+              >
+                Save
+              </Button>
             </DialogClose>
           </form>
         </DialogFooter>

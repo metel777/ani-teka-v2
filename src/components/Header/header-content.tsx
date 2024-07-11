@@ -8,8 +8,12 @@ import { usePathname } from "next/navigation"
 import { useScreenWidth } from "@/hooks/useScreenWidth"
 import HeaderDrawer from "./header-drawer"
 import ProfileDropdown from "./profile-dropdown"
+import { Session, User } from "lucia"
+import { ThemeToggle } from "../ThemeToggle"
 
-export default  function HeaderContent({session}: {session: any}) {
+export default  function HeaderContent({session}: {session: {
+  user: User, session: Session
+}}) {
   const path = usePathname()
   const { isDesktop, isMobile, isTablet } = useScreenWidth()
 
@@ -58,7 +62,7 @@ export default  function HeaderContent({session}: {session: any}) {
               </Link>
             </section>
           ) : (
-            <ProfileDropdown name={session?.user?.email as string} />
+            <ProfileDropdown username={session?.user?.username as string} />
           )}
         </>
       ) : (

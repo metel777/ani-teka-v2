@@ -1,8 +1,8 @@
-"use client";
-import * as React from "react";
+"use client"
+import * as React from "react"
 
-import { cn } from "@/lib/utils";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cn } from "@/lib/utils"
+import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 const Tabs = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Root>,
@@ -11,14 +11,11 @@ const Tabs = React.forwardRef<
   <TabsPrimitive.Root
     orientation="vertical"
     ref={ref}
-    className={cn(
-      "flex rounded-md p-1 text-g.warm-700 gap-1",
-      className
-    )}
+    className={cn("flex gap-1 rounded-md p-1 text-g.warm-700", className)}
     {...props}
   />
-));
-Tabs.displayName = TabsPrimitive.List.displayName;
+))
+Tabs.displayName = TabsPrimitive.List.displayName
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -27,14 +24,14 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "flex flex-col h-auto items-center justify-start rounded-md bg-g.warm-100 p-1 text-g.warm-500",
-      className
+      "flex h-auto flex-col items-center justify-start rounded-md bg-[--fill] p-1 text-[--text-weak]",
+      className,
     )}
     {...props}
   />
-));
+))
 
-TabsList.displayName = TabsPrimitive.List.displayName;
+TabsList.displayName = TabsPrimitive.List.displayName
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -43,14 +40,14 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex items-center justify-start whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-g.warm-400 data-[state=active]:text-g.warm-800 data-[state=active]:shadow-sm",
-      className
+      " rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-white transition-all disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-g.warm-300 data-[state=active]:text-[--text-strong] dark:data-[state=active]:bg-g.warm-800",
+      className,
     )}
     {...props}
   />
-));
+))
 
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
@@ -58,14 +55,11 @@ const TabsContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
-    className={cn(
-      "data-[state=inactive]:hidden",
-      className
-    )}
+    className={cn("data-[state=inactive]:hidden", className)}
     {...props}
   />
-));
+))
 
-TabsContent.displayName = TabsPrimitive.Content.displayName;
+TabsContent.displayName = TabsPrimitive.Content.displayName
 
-export { Tabs, TabsContent, TabsList, TabsTrigger };
+export { Tabs, TabsContent, TabsList, TabsTrigger }

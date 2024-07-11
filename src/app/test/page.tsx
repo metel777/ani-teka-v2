@@ -1,15 +1,14 @@
-import { auth } from "@/auth"
-import MediaLoading from "@/components/MediaLoading"
+"use client"
+import { PrimaryBtn } from "@/components/Buttons"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Loader, LoaderCircle } from "lucide-react"
-import { Session } from "next-auth"
+import {  useToast } from "@/components/ui/use-toast"
 
-export default  function TestPage({}) {
+export default function TestPage({}) {
+  const { toast } = useToast()
   
   return (
-    <div className="h-screen flex items-center justify-center">
-            <Button>Execute</Button>
+    <div className="flex h-screen items-center justify-center">
+      <PrimaryBtn/>
     </div>
   )
 }

@@ -109,8 +109,9 @@ export default function MediaCard({ item }: { item: media }) {
         </main>
       </HoverCardTrigger>
       <HoverCardContent
-        className="w-[250px] sm:w-[300px] overflow-hidden border-[--stroke-secondary] p-0 text-sm text-[--text-secondary] shadow-lg"
+        className="w-[250px] sm:w-[300px] overflow-hidden border-[--stroke-secondary] p-0 text-sm text-[--text-secondary] shadow-tw-shadow"
         side="right"
+        
         align="start"
       >
         <HoverContent
@@ -170,7 +171,7 @@ function HoverContent({
             description
           </div>
           <div
-            className=" line-clamp-6 text-[--text-secondary]"
+            className=" line-clamp-9 text-[--text-secondary]"
             dangerouslySetInnerHTML={{ __html: description }}
           ></div>
         </div>

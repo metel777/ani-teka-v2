@@ -4,6 +4,8 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/ui/themeProvider"
 import Header from "@/components/Header/Header"
 import { validateSession } from "@/actions/auth"
+import { Toaster } from "@/components/ui/toaster"
+import Footer from "@/components/Footer/Footer"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,7 +24,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} mx-auto bg-[--main-bg] text-[--text-secondary] font-medium antialiased`}
+        className={`${inter.className} mx-auto bg-[--main-bg] font-medium text-[--text-secondary] antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -32,9 +34,14 @@ export default async function RootLayout({
         >
           <div className="logo_mark"></div>
           <Header session={session as any} />
-          <div className="mx-auto mt-5 max-w-[1100px] overflow-hidden">
+
+          <main className="mx-auto mt-5 max-w-[1100px] overflow-hidden ">
             {children}
-          </div>
+          </main>
+
+          <Footer />
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

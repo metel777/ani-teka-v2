@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      lineClamp: {
+        7: '7',
+        8: '8',
+        9: '9',
+      },
       transitionProperty: {
         'height': 'height'
       },
@@ -27,6 +32,9 @@ const config = {
         "btn.md": "10px 18px 10px 18px",
         "btn.lg": "12px 20px 12px 20px",
         "btn.xl": "16px 24px 16px 24px",
+      },
+      backgroundImage: {
+       'neu-btn': 'linear-gradient(rgba(255, 255, 255, .08), rgba(255, 255, 255, 0));'
       },
       boxShadow: {
         xxs: "0 1px 2px rgba(16, 24, 40, 0.16)",
@@ -38,7 +46,10 @@ const config = {
         "2xl": "0px 24px 48px -12px rgba(16, 24, 40, 0.18)",
         "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.14)",
         glance: "inset 0 1px rgba(255, 255, 255, 0.4)",
-        "glance-authkit": "inset 0 1px 1px 0 rgba(255, 237, 223, 0.2), inset 0 24px 48px 0 rgba(245, 212, 168, 0.06), inset 0 0 0 1px rgba(247, 221, 186, 0.12)"
+        "glance-authkit": "inset 0 1px 1px 0 rgba(255, 237, 223, 0.2), inset 0 24px 48px 0 rgba(245, 212, 168, 0.06), inset 0 0 0 1px rgba(247, 221, 186, 0.12)",
+        "smooth-taobao": "0 6px 48px 0 rgba(0, 17, 51, .06)",
+        "tw-shadow": " 0 10px 32px rgba(34,42,53,.15), 0 1px 1px rgba(0,0,0,.05), 0 4px 6px rgba(34,42,53,.08), 0 1px 1px rgba(34,42,53,.1), 0 24px 68px rgba(47,48,55,.1)",
+        "neu-shadow": "inset 0 1px rgba(255, 255, 255, .12), 0 1px 2px rgba(16, 24, 40, .16)"
       },
       /* on lighter bg color -700, on darker(starts from 400) -white  */
 
@@ -85,7 +96,7 @@ const config = {
           "tertiary-light": "#color",
           "tertiary-dark": "#color"
         },
-        
+
         "g.warm": {
           25: "#fdfdfc",
           50: "#fafaf9",
@@ -212,7 +223,7 @@ const config = {
           900: "#141414",
           950: "#0f0f0f",
         },
-       
+
 
         moss: {
           25: "#fafdf7",
