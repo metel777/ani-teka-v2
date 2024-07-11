@@ -1,5 +1,5 @@
 
-## AniTeka v4
+## AniTeka v2
 left to do:
 1. ~~filter by genres and by tags dropdowns.~~
 2. ~~debounce.~~
