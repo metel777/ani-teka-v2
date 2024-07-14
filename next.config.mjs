@@ -12,7 +12,8 @@ const nextConfig = {
   },
   experimental: {
 		serverComponentsExternalPackages: ["@node-rs/argon2"]
-	}
+	},
+  basePath: '/metel777/ani-teka-v2/'
 }
 
 export default nextConfig
