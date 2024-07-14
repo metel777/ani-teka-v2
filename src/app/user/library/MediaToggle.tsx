@@ -41,6 +41,7 @@ export default function MediaToggle() {
               onClick={() => changeList(item)}
               className="capitalize"
               value={item}
+              key={item}
             >
               {item}
             </DropdownMenuRadioItem>

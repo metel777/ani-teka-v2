@@ -46,9 +46,6 @@ export default function ProfileDropdown({ username }: Props) {
                 <LibraryBig size={15} className="" /> My lib
               </DropdownMenuItem>
             </Link>
-            <DropdownMenuItem className="flex items-center gap-2 ">
-              <Settings size={15} className="" /> Settings
-            </DropdownMenuItem>
             <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
               <AlertDialog>
                 <AlertDialogTrigger className="flex items-center gap-2">

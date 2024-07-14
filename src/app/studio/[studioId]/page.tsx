@@ -1,9 +1,9 @@
+import { getStudio } from "@/actions/graphql/getStudio"
 import MediaCard from "@/components/MediaCard"
 import MediaCardContainer from "@/components/MediaCardContainer"
 import NavigatePagination from "@/components/Pagination"
 import Separator from "@/components/Separator"
 import { Title1 } from "@/components/Titles"
-import { getStudio } from "@/utils/getStudio"
 import { Suspense } from "react"
 
 type Props = {
