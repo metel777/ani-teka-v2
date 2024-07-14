@@ -1,4 +1,5 @@
-import { getFullDataOnMedia } from "@/utils/getFullDataOnMedia"
+
+import { getFullDataOnMedia } from "@/actions/graphql/getFullDataOnMedia"
 import MainMediaInfoSection from "./MainMediaInfoSection"
 import MediaAllRelations from "./MediaAllRelations"
 

@@ -1,5 +1,4 @@
 import MediaLoading from "@/components/MediaLoading"
-import { Skeleton } from "@/components/ui/skeleton"
 export default function LoadingHome() {
   return (
     <div className="min-h-screen">

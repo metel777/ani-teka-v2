@@ -1,7 +1,7 @@
 import MediaCard from "@/components/MediaCard"
 import MediaCardContainer from "@/components/MediaCardContainer"
 import { Title1 } from "@/components/Titles"
-import getCharacter from "@/utils/getCharacter"
+import getCharacter from "@/actions/graphql/getCharacter"
 import Image from "next/image"
 
 export default async function CharactersPage({

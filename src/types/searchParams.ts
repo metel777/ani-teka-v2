@@ -1,7 +1,4 @@
-// export type Page = {
-//     searchParams: { [key: string]: any }
-//   }
-export type Page = {
+export type MainPageParams = {
   searchParams?: {
     page?: string
     search?: string

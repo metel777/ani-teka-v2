@@ -1,33 +1,23 @@
 'use server'
 
-import { MediaForHome } from "@/types/media"
+import { MediaForFullDetail } from "@/types/full-media"
 
 
 
-
-export async function getManga(page?: string, search?: string): Promise<MediaForHome> {
+export async function getFullDataOnMedia(id?: string, mediaType?: 'MANGA' | 'ANIME'): Promise<MediaForFullDetail> {
 
   const query = `
   query (
-    $id: Int
-    $page: Int
-    $perPage: Int = 25
+    $id: Int = 154587
     $sortValue: [MediaSort] = [SCORE_DESC]
     $search: String
     $seasonYear: Int
     $genre: [String]
     $tag_in: [String]
-    $type: MediaType = MANGA
+    $type: MediaType = ANIME
   ) {
-    Page(page: $page, perPage: $perPage) {
-      pageInfo {
-        total
-        currentPage
-        lastPage
-        hasNextPage
-        perPage
-      }
-      media(
+   
+      Media(
         id: $id
         type: $type
         sort: $sortValue
@@ -58,7 +48,12 @@ export async function getManga(page?: string, search?: string): Promise<MediaFor
           month
           day
         } 
-       
+        studios(isMain: true) {
+          nodes {
+            id
+            name
+          }
+        } 
         tags {
           id
           name
@@ -78,6 +73,17 @@ export async function getManga(page?: string, search?: string): Promise<MediaFor
               id
               status
               format
+              episodes
+              startDate {
+                year
+                month
+                day
+              } 
+              endDate {
+                year
+                month
+                day
+              } 
               coverImage {
                 extraLarge
                 large
@@ -92,7 +98,7 @@ export async function getManga(page?: string, search?: string): Promise<MediaFor
             }
           }
         }
-        staff(sort: ROLE_DESC) {
+        staff {
           edges {
             id
             role
@@ -114,7 +120,13 @@ export async function getManga(page?: string, search?: string): Promise<MediaFor
           edges {
             id
             role
-            
+            voiceActors(language: JAPANESE) {
+              id
+              image {
+                large
+                medium
+              }
+            }
             node {
               id
               description
@@ -130,7 +142,7 @@ export async function getManga(page?: string, search?: string): Promise<MediaFor
             }
           }
         }
-        recommendations(sort: RATING) {
+        recommendations {
           edges {
             node {
               rating
@@ -168,13 +180,23 @@ export async function getManga(page?: string, search?: string): Promise<MediaFor
         popularity
         favourites 
       }
+      GenreCollection
+       MediaTagCollection {
+      id
+      name
+      description
+      isAdult
+      isGeneralSpoiler
     }
-  }
+    }
+  
+
   
   `
   const variables = {
-    page,
-    search
+    id,
+    type: mediaType
+    
   }
 
   const results = await fetch("https://graphql.anilist.co/", {

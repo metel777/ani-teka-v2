@@ -1,9 +1,15 @@
 'use server'
 
-import { MediaForHome } from "../types/media"
+import { MediaForHome } from "../../types/media"
 
 
-export async function getMedia(page?: string, search?: string, order?: string, genre?: string | string[], tag?: string | string[]): Promise<MediaForHome> {
+export async function getMedia(page?: string,
+  search?: string,
+  order?: string,
+  genre?: string | string[],
+  tag?: string | string[],
+  mediaType?: "ANIME" | "MANGA"
+): Promise<MediaForHome> {
 
   const query = `
   query (
@@ -82,12 +88,14 @@ export async function getMedia(page?: string, search?: string, order?: string, g
     search,
     sortValue: order,
     genre,
-    tag_in: tag
+    tag_in: tag,
+    type: mediaType
+
   }
 
   const results = await fetch("https://graphql.anilist.co/", {
     next: { revalidate: 5, tags: ['media'] },
-    
+
     method: "POST",
     headers: {
       "Content-Type": "application/json",

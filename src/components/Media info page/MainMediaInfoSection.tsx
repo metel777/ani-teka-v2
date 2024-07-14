@@ -17,11 +17,10 @@ export default async function MainMediaInfoSection({
     query,
   }: {
     query: MediaForFullDetail
-  }) {
-    const m = query.data.Media
-  
+  }) {  
     const session = await validateSession()
-  
+    
+    const m = query.data.Media
     const mediaInUserList = await db
       .select()
       .from(userLists)

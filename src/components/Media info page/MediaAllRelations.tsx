@@ -4,9 +4,13 @@ import { Title1 } from "@/components/Titles"
 import Card, { MiniMediaCard } from "@/components/Mini-Item-Card"
 import { MediaForFullDetail } from "@/types/full-media"
 
-export default async function MediaAllRelations({query} : {query: MediaForFullDetail}) {
-    const m = query.data.Media
-    
+export default async function MediaAllRelations({
+  query,
+}: {
+  query: MediaForFullDetail
+}) {
+  const m = query.data.Media
+
   return (
     <main className="p-4">
       {m.relations.edges.length > 0 && (

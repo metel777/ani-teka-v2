@@ -1,7 +1,6 @@
 import FilterSection from "@/components/FilterSection"
 import { getTagsAndGenres } from "@/utils/getTagsAndGenres"
 
-
 export default async function layout({
   children,
 }: {
@@ -12,8 +11,8 @@ export default async function layout({
   const tags = data.data.MediaTagCollection
   return (
     <div>
-        <FilterSection tags={tags} genres={genres} />
-        {children}
+      <FilterSection tags={tags} genres={genres} />
+      {children}
     </div>
   )
 }

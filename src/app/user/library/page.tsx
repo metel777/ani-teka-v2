@@ -45,7 +45,7 @@ export default async function UserListsPage({
               ))}
             </TabsList>
             {userListOption.map((item) => (
-              <GigaTab mediaType={searchParams.list.toUpperCase() || 'anime'} key={item} list={item} />
+              <GigaTab mediaType={searchParams?.list?.toUpperCase() || 'ANIME'} key={item} list={item} />
             ))}
           </Tabs>
         </section>
