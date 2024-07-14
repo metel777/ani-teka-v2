@@ -57,11 +57,5 @@ export async function deleteFromList(formData: FormData) {
     await db.delete(userLists).where(and(eq(userLists.userId, userId), eq(userLists.media_id, mediaId )))
 }
 
-export async function getAllItemsFromUserList() {
-    const session = await validateSession()
-    const userId = session?.user?.id as string
 
-    return await db.select().from(userLists).where(eq(userLists.userId, userId))
-
-}
 

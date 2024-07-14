@@ -17,7 +17,8 @@ export function TabContentLayout({ children, value }: Props) {
 
 export function UserListCard({ children }: Props) {}
 
-export async function TabListItemWithCount({ option }: { option: string }) {
+export async function TabListItemWithCount({ option, mediaType }: { option: string ; mediaType: 'anime' | 'manga'}) {
+
   const session = await validateSession()
   const userId = session.user?.id as string
 
@@ -28,14 +29,17 @@ export async function TabListItemWithCount({ option }: { option: string }) {
       and(
         eq(userLists.userId, userId),
         eq(userLists.list, option as any),
+        eq(userLists.mediaType, mediaType)
       ),
     )
   if (option === "all") {
     query = await db
       .select()
       .from(userLists)
-      .where(eq(userLists.userId, userId))
+      .where(and(eq(userLists.userId, userId), eq(userLists.mediaType, mediaType)))
+      
   }
+
   return (
     <TabsTrigger className="w-full capitalize" value={option}>
       <div className="flex justify-between">

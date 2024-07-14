@@ -45,7 +45,7 @@ interface userLists {
 }
 
 type Props = {
-  mediaId: number
+  mediaId: string
   mediaType: "ANIME" | "MANGA"
   episodes: any
   session: { user: User | null; session: Session | null }
@@ -102,13 +102,6 @@ export default function AddToList({
             <DropdownMenu>
               <DropdownMenuTrigger className="capitalize" asChild>
                 {/* if media in user list - display list name. else - display selected ,by user, list */}
-
-                {/* {isMediaInUserList ? (
-                  <Button variant="dropdown" className="w-[120px]">
-                    {mediaInUserList[0].list}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Button>
-                ) : ( */}
                 <Button variant="dropdown" className="w-[120px]">
                   {isMediaInUserList
                     ? mediaInUserList[0].list
@@ -117,7 +110,6 @@ export default function AddToList({
                       : selectedList}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
-                {/* )} */}
               </DropdownMenuTrigger>
               <DropdownMenuContent className="capitalize">
                 {listsOptions.map((item, index) => (
@@ -144,7 +136,7 @@ export default function AddToList({
             />
           </div>
           <div>
-            <Label htmlFor="episodes">Watched episodes</Label>
+            <Label htmlFor="episodes">{mediaType=== 'ANIME' ? "Watched episodes" : 'Chapters read'}</Label>
             <Input
               onChange={(e) => setWatchedEpisodes(e.target.valueAsNumber)}
               id="episodes"

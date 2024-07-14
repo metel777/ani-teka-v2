@@ -158,11 +158,7 @@ export function OrderPick() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="dropdown">
-          Order by <DropdownIcon />
-        </Button>
-      </DropdownMenuTrigger>
+    <CustomDropdownTrigger>Order by</CustomDropdownTrigger>
       <DropdownMenuContent>
         {order.map((item) => (
           <DropdownMenuCheckboxItem
@@ -209,12 +205,8 @@ export function GenresPick({ genres }: { genres: string[] }) {
   return (
     <div className="relative">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="w-full justify-center" variant="dropdown">
-            Filter by genres
-            <DropdownIcon />
-          </Button>
-        </DropdownMenuTrigger>
+  
+      <CustomDropdownTrigger>Filter by genres</CustomDropdownTrigger>
         <DropdownMenuContent className="h-72 w-full overflow-y-auto">
           {genres.map((genre) => (
             <DropdownMenuCheckboxItem
@@ -229,7 +221,7 @@ export function GenresPick({ genres }: { genres: string[] }) {
       </DropdownMenu>
 
       {/* Selected genres indicator */}
-      
+
       {genresParams.length > 0 && (
         <TooltipProvider>
           <Tooltip>
@@ -243,5 +235,16 @@ export function GenresPick({ genres }: { genres: string[] }) {
         </TooltipProvider>
       )}
     </div>
+  )
+}
+
+export function CustomDropdownTrigger({children}: {children: React.ReactNode}) {
+  return (
+    <DropdownMenuTrigger asChild>
+      <Button className="w-fit justify-center" variant="dropdown">
+        {children}
+        <DropdownIcon />
+      </Button>
+    </DropdownMenuTrigger>
   )
 }

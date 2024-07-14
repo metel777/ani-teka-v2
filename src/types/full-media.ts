@@ -41,7 +41,7 @@ interface media {
     }
  
     type: 'ANIME' | 'MANGA'
-    id: Key
+    id: Key | Number
     chapters: Number
     volumes: Number
     season: string

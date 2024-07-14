@@ -3,6 +3,7 @@ import { getMediaFromUserList } from "@/utils/getMediaFromUserList"
 import { GigaTab } from "./Tabs"
 import { userListOptions } from "@/types/userList"
 import { TabListItemWithCount } from "./components"
+import MediaToggle from "./MediaToggle"
 
 const userListOption = [
   "all",
@@ -13,12 +14,20 @@ const userListOption = [
   "completed",
 ] as userListOptions[]
 
-export default async function UserListsPage() {
-  const media = await getMediaFromUserList("all")
+export default async function UserListsPage({
+  searchParams,
+}: {
+  searchParams: {
+    list: "anime" | "manga"
+  }
+}) {
 
   return (
     <main className="h-screen p-4">
-      <section className="text-3xl">Your library</section>
+      <section className=" mb-5 flex w-fit gap-4">
+        <h1 className="text-3xl font-bold">Your library</h1>
+        <MediaToggle />
+      </section>
       <main>
         <section>
           <Tabs
@@ -28,12 +37,15 @@ export default async function UserListsPage() {
           >
             <TabsList className="flex h-fit w-[150px] flex-col">
               {userListOption.map((item, index) => (
-                <TabListItemWithCount option={item} key={index}/>
-              
+                <TabListItemWithCount
+                  mediaType={searchParams.list || "anime"}
+                  option={item}
+                  key={index}
+                />
               ))}
             </TabsList>
             {userListOption.map((item) => (
-              <GigaTab key={item} list={item} />
+              <GigaTab mediaType={searchParams.list.toUpperCase() || 'anime'} key={item} list={item} />
             ))}
           </Tabs>
         </section>

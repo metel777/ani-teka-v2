@@ -27,7 +27,7 @@ export interface MediaForUserList {
   averageScore: number
 }
 
-export async function getMediaById(id: (number | null)[]): Promise<ListMedia> {
+export async function getMediaByIdInArray(id: (number | null)[], type: 'ANIME' | "MANGA"): Promise<ListMedia> {
   const query = `
   query (
     $id: [Int]
@@ -62,7 +62,7 @@ export async function getMediaById(id: (number | null)[]): Promise<ListMedia> {
   `
   const variables = {
     id,
-    type: 'ANIME'
+    type
   }
 
   const results = await fetch("https://graphql.anilist.co/", {
