@@ -78,7 +78,7 @@ export default function MediaCard({ item }: { item: media }) {
                   width={17}
                   height={17}
                   alt="calendar icon"
-                  src="/calendar2-event.svg"
+                  src="./calendar2-event.svg"
                 />
                 ANNOUNCE
               </>
@@ -88,7 +88,7 @@ export default function MediaCard({ item }: { item: media }) {
                   width={17}
                   height={17}
                   alt="calendar icon"
-                  src="/check2.svg"
+                  src="./check2.svg"
                 />
                 FINISHED
               </>
@@ -98,7 +98,7 @@ export default function MediaCard({ item }: { item: media }) {
                   width={17}
                   height={17}
                   alt="calendar icon"
-                  src="/broadcast.svg"
+                  src="./broadcast.svg"
                 />
                 RELEASING
               </>
