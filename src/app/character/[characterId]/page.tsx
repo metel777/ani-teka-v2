@@ -1,15 +1,16 @@
 import MediaCard from "@/components/MediaCard"
 import MediaCardContainer from "@/components/MediaCardContainer"
 import { Title1 } from "@/components/Titles"
-import {getCharacter} from "@/actions/graphql/getCharacter"
+import { getCharacter } from "@/actions/graphql/getCharacter"
 import Image from "next/image"
 
 export async function generateStaticParams() {
   const items10000 = Array.from(Array(10000).keys())
- 
-  return {
-    characterId: items10000
-  }
+
+  return items10000.map((item) => {
+    characterId: item
+  })
+  
 }
 
 export default async function CharactersPage({
@@ -19,7 +20,8 @@ export default async function CharactersPage({
 }) {
   const charactersQuery = await getCharacter(params.characterId)
 
-  const { description, id, image, name, favourites } = charactersQuery.data.Character
+  const { description, id, image, name, favourites } =
+    charactersQuery.data.Character
   const characters = charactersQuery.data.Character.media.edges
 
   return (

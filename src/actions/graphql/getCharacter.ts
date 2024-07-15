@@ -80,3 +80,5 @@ export async function getCharacter(id: any): Promise<FullCharacterInfo> {
 
     return results.json()
 }
+
+
