@@ -4,14 +4,16 @@ import { Title1 } from "@/components/Titles"
 import { getCharacter } from "@/actions/graphql/getCharacter"
 import Image from "next/image"
 
-export async function generateStaticParams() {
-  const items10000 = Array.from(Array(10000).keys())
+// export async function generateStaticParams() {
+//   const items10000 = Array.from(Array(10000).keys())
 
-  return items10000.map((item) => {
-    characterId: item
-  })
+//   return items10000.map((item) => {
+//     characterId: item
+//   })
   
-}
+// }
+
+export const dynamicParams = false
 
 export default async function CharactersPage({
   params,
