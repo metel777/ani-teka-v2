@@ -16,7 +16,14 @@ type node = {
   node: media
 }
 
-export const dynamicParams = false
+export async function generateStaticParams() {
+  const items10000 = Array.from(Array(10000).keys())
+
+  return items10000.map((item) => {
+    personId: item
+  })
+  
+}
 
 export default async function page({ params }: Props) {
   const promise = await getPerson(params.personId)
