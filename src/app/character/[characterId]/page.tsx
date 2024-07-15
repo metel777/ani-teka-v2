@@ -3,32 +3,18 @@ import MediaCardContainer from "@/components/MediaCardContainer"
 import { Title1 } from "@/components/Titles"
 import {getCharacter} from "@/actions/graphql/getCharacter"
 import Image from "next/image"
-import { GetServerSideProps } from "next"
 
-interface CharactersPageProps {
-  params: { characterId: string };
-}
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { characterId } = context.params as { characterId: string };
-  const charactersQuery = await getCharacter(characterId);
 
-  return {
-    props: {
-      characterData: charactersQuery.data.Character,
-      characters: charactersQuery.data.Character.media.edges,
-    },
-  };
-};
-
-export default function CharactersPage({
-  characterData,
-  characters,
+export default async function CharactersPage({
+  params,
 }: {
-  characterData: any;
-  characters: any[];
+  params: { characterId: string }
 }) {
-  const { description, id, image, name, favourites } = characterData;
+  const charactersQuery = await getCharacter(params.characterId)
+
+  const { description, id, image, name, favourites } = charactersQuery.data.Character
+  const characters = charactersQuery.data.Character.media.edges
 
   return (
     <main>
@@ -36,7 +22,7 @@ export default function CharactersPage({
         <div>
           <Image width={300} height={500} alt={name.first} src={image.large} />
         </div>
-        <section className="col-span-3 p-4">
+        <section className="col-span-3 p-4 ">
           <Title1>{name.userPreferred}</Title1>
           <p className="-mt-5 mb-5">Favourites: {favourites}</p>
           <div dangerouslySetInnerHTML={{ __html: description }}></div>
@@ -50,5 +36,5 @@ export default function CharactersPage({
         </MediaCardContainer>
       </div>
     </main>
-  );
-};
+  )
+}

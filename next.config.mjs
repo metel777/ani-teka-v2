@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  async exportPathMap(defaultPathMap) {
+    const pathMap = { ...defaultPathMap }
+    delete pathMap["/character/[characterId]"]
+    return pathMap
+  },
   images: {
     remotePatterns: [
       {
@@ -12,9 +16,9 @@ const nextConfig = {
     ],
   },
   experimental: {
-		serverComponentsExternalPackages: ["@node-rs/argon2"]
-	},
-  basePath: '/metel777/ani-teka-v2/'
+    serverComponentsExternalPackages: ["@node-rs/argon2"],
+  },
+  basePath: "/metel777/ani-teka-v2/",
 }
 
 export default nextConfig
