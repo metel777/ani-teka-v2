@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async exportPathMap(defaultPathMap) {
-    const pathMap = { ...defaultPathMap }
-    delete pathMap["/character/[characterId]"]
-    return pathMap
-  },
   images: {
     remotePatterns: [
       {
