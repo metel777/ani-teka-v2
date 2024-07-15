@@ -1,19 +1,34 @@
 import MediaCard from "@/components/MediaCard"
 import MediaCardContainer from "@/components/MediaCardContainer"
 import { Title1 } from "@/components/Titles"
-import getCharacter from "@/actions/graphql/getCharacter"
+import {getCharacter} from "@/actions/graphql/getCharacter"
 import Image from "next/image"
+import { GetServerSideProps } from "next"
 
-export default async function CharactersPage({
-  params,
+interface CharactersPageProps {
+  params: { characterId: string };
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { characterId } = context.params as { characterId: string };
+  const charactersQuery = await getCharacter(characterId);
+
+  return {
+    props: {
+      characterData: charactersQuery.data.Character,
+      characters: charactersQuery.data.Character.media.edges,
+    },
+  };
+};
+
+export default function CharactersPage({
+  characterData,
+  characters,
 }: {
-  params: { characterId: string }
+  characterData: any;
+  characters: any[];
 }) {
-  const data = await getCharacter(params.characterId)
-
-  const { description, id, image, name, favourites } = data.data.Character
-
-  const media = data.data.Character.media.edges
+  const { description, id, image, name, favourites } = characterData;
 
   return (
     <main>
@@ -21,7 +36,7 @@ export default async function CharactersPage({
         <div>
           <Image width={300} height={500} alt={name.first} src={image.large} />
         </div>
-        <section className="col-span-3 p-4 ">
+        <section className="col-span-3 p-4">
           <Title1>{name.userPreferred}</Title1>
           <p className="-mt-5 mb-5">Favourites: {favourites}</p>
           <div dangerouslySetInnerHTML={{ __html: description }}></div>
@@ -29,11 +44,11 @@ export default async function CharactersPage({
       </section>
       <div className="p-8">
         <MediaCardContainer>
-          {media?.map((item: any) => (
+          {characters?.map((item: any) => (
             <MediaCard item={item.node} key={item.id} />
           ))}
         </MediaCardContainer>
       </div>
     </main>
-  )
-}
+  );
+};

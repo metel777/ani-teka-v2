@@ -2,7 +2,7 @@
 
 import { FullCharacterInfo } from "@/types/characters"
 
-export default async function getCharacter(id: any): Promise<FullCharacterInfo> {
+export async function getCharacter(id: any): Promise<FullCharacterInfo> {
     const query = `
     query ($id: Int ) {
         Character(id: $id) {
