@@ -10,6 +10,8 @@ type Props = {
   studioId: string
 }
 
+export const dynamicParams = false
+
 export default async function page({ params }: { params: Props }) {
   const studioId = params.studioId
   const data = await getStudio(studioId)

@@ -5,6 +5,9 @@ type Props = {
     animeId: string
   }
 }
+
+export const dynamicParams = false
+
 export default function page({ params }: Props) {
   return <MediaPage mediaId={params.animeId} mediaType="ANIME" />
 }

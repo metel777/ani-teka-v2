@@ -16,6 +16,8 @@ type node = {
   node: media
 }
 
+export const dynamicParams = false
+
 export default async function page({ params }: Props) {
   const promise = await getPerson(params.personId)
   const data = promise.data.Staff
