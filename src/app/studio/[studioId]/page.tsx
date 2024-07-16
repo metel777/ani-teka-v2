@@ -10,14 +10,7 @@ type Props = {
   studioId: string
 }
 
-export async function generateStaticParams() {
-  const items10000 = Array.from(Array(10000).keys())
 
-  return items10000.map((item) => {
-    studioId: item
-  })
-  
-}
 
 export default async function page({ params }: { params: Props }) {
   const studioId = params.studioId
