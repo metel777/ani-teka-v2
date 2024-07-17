@@ -4,12 +4,15 @@ import { Button, buttonVariants } from "./ui/button"
 export function PrimaryBtn({
   children,
   type,
+  disabled,
 }: {
   children: React.ReactNode
   type?: "submit" | "reset" | "button" | undefined
+  disabled?: boolean
 }) {
   return (
     <Button
+      disabled={disabled}
       type={type}
       className="border border-indigo-600 bg-indigo-600 text-white shadow-neu-shadow hover:bg-indigo-700"
       style={{

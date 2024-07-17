@@ -72,46 +72,19 @@ export default function MediaCard({ item }: { item: media }) {
                   : "releasing"
             }
           >
-            {status === "NOT_YET_RELEASED" ? (
-              <>
-                <Image
-                  width={17}
-                  height={17}
-                  alt="calendar icon"
-                  src="./calendar2-event.svg"
-                />
-                ANNOUNCE
-              </>
-            ) : status === "FINISHED" ? (
-              <>
-                <Image
-                  width={17}
-                  height={17}
-                  alt="calendar icon"
-                  src="./check2.svg"
-                />
-                FINISHED
-              </>
-            ) : status === "RELEASING" ? (
-              <>
-                <Image
-                  width={17}
-                  height={17}
-                  alt="calendar icon"
-                  src="./broadcast.svg"
-                />
-                RELEASING
-              </>
-            ) : (
-              status
-            )}
+            {status === "NOT_YET_RELEASED"
+              ? "ANNOUNCE"
+              : status === "FINISHED"
+                ? "FINISHED"
+                : status === "RELEASING"
+                  ? "RELEASING"
+                  : status}
           </Badge>
         </main>
       </HoverCardTrigger>
       <HoverCardContent
-        className="w-[250px] sm:w-[300px] overflow-hidden border-[--stroke-secondary] p-0 text-sm text-[--text-secondary] shadow-tw-shadow"
+        className="w-[250px] overflow-hidden border-[--stroke-secondary] p-0 text-sm text-[--text-secondary] shadow-tw-shadow sm:w-[300px]"
         side="right"
-        
         align="start"
       >
         <HoverContent
@@ -154,7 +127,10 @@ function HoverContent({
             {studios?.nodes[0]?.name && (
               <>
                 <span className="hover:underline ">
-                  <Link className="line-clamp-1" href={`/studio/${studios.nodes[0].id}`}>
+                  <Link
+                    className="line-clamp-1"
+                    href={`/studio/${studios.nodes[0].id}`}
+                  >
                     {studios.nodes[0].name}
                   </Link>
                 </span>

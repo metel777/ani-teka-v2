@@ -9,6 +9,7 @@ import Image from "next/image"
 import { register } from "@/actions/auth"
 import { useFormState } from "react-dom"
 import { PrimaryBtn } from "@/components/Buttons"
+import SubmitButton from "@/components/Auth/SubmitButton"
 
 const initialState = {
   error: "",
@@ -39,7 +40,7 @@ export function RegisterForm() {
           placeholder="Confirm password"
         />
       </div>
-      <PrimaryBtn type="submit">Create an account</PrimaryBtn>
+      <SubmitButton mode="signup" />
       <Link className="text-sm hover:underline" href="/login">
         Already have an account?
       </Link>

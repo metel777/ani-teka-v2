@@ -61,9 +61,6 @@ const config = {
           "secondary-dark": "#79716b",
           "tertiary-light": "#d7d3d0",
           "tertiary-dark": "#44403c",
-          // "text": "#color",
-          // "text": "#color",
-          // "text": "#color",
         },
         "bg": {
           "primary-light": "white",
