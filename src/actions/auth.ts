@@ -45,7 +45,7 @@ export async function register(formData: FormData): Promise<ActionResult> {
 
     // TODO: check if username is already used
     try {
-        await db.insert(users).values({ id: userId, email, passwordHash, username})
+        await db.insert(users).values({ id: userId, email, passwordHash, username })
     } catch (error) {
 
     }
@@ -72,7 +72,7 @@ export async function login(formData: FormData): Promise<ActionResult> {
     if (!existingUser) {
         return {
             error: "Incorrect username or password"
-        };
+        }
     }
 
     const validPassword = await verify(existingUser[0].passwordHash as string, password);
@@ -113,17 +113,17 @@ export async function validateSession(): Promise<{ user: User, session: Session 
 }
 
 export async function logout(): Promise<ActionResult> {
-	"use server";
-	const { session } = await validateSession();
-	if (!session) {
-		return {
-			error: "Unauthorized"
-		};
-	}
+    "use server";
+    const { session } = await validateSession();
+    if (!session) {
+        return {
+            error: "Unauthorized"
+        };
+    }
 
-	await lucia.invalidateSession(session.id);
+    await lucia.invalidateSession(session.id);
 
-	const sessionCookie = lucia.createBlankSessionCookie();
-	cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-	return redirect("/login");
+    const sessionCookie = lucia.createBlankSessionCookie();
+    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+    return redirect("/login");
 }
