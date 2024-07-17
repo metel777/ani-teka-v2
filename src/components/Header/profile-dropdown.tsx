@@ -51,14 +51,14 @@ export default function ProfileDropdown({ username }: Props) {
                 <AlertDialogTrigger className="flex items-center gap-2">
                   <LogOut size={15} /> Logout
                 </AlertDialogTrigger>
-                <AlertDialogContent className="w-min">
+                <AlertDialogContent className="w-min  ">
                   <form action={logout}>
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction type="submit">
+                      <AlertDialogCancel className="hover:bg-g.warm-200">Cancel</AlertDialogCancel>
+                      <AlertDialogAction className="border bg-transparent hover:bg-g.warm-500 hover:text-white" type="submit">
                         Continue
                       </AlertDialogAction>
                     </AlertDialogFooter>

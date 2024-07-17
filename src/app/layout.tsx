@@ -21,6 +21,7 @@ export default async function RootLayout({
 }>) {
   const session = await validateSession()
 
+
   return (
     <html lang="en">
       <body

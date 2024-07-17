@@ -1,10 +1,11 @@
 import { defineConfig } from 'drizzle-kit'
+console.log()
 export default defineConfig({
   dialect: "postgresql",
   schema: "./src/db/schema.ts",
   out: "./src/db/generations",
   dbCredentials: {
-    url:"postgres://default:N1V7OvcKYGxQ@ep-super-firefly-a2rm6sr7-pooler.eu-central-1.aws.neon.tech/verceldb?sslmode=require"
+    url: process.env.POSTGRES_PRISMA_URL as string,
   }
 
 })
