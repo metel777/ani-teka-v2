@@ -8,10 +8,11 @@ import { Label } from "@/components/ui/label"
 import Image from "next/image"
 import { register } from "@/actions/auth"
 import { useFormState } from "react-dom"
+import { PrimaryBtn } from "@/components/Buttons"
 
 const initialState = {
   error: "",
-} 
+}
 
 export function RegisterForm() {
   const [action, formState] = useFormState(register, initialState as any)
@@ -38,9 +39,7 @@ export function RegisterForm() {
           placeholder="Confirm password"
         />
       </div>
-      <Button type="submit" className="w-full">
-        Create an account
-      </Button>
+      <PrimaryBtn type="submit">Create an account</PrimaryBtn>
       <Link className="text-sm hover:underline" href="/login">
         Already have an account?
       </Link>

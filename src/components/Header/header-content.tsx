@@ -10,6 +10,7 @@ import HeaderDrawer from "./header-drawer"
 import ProfileDropdown from "./profile-dropdown"
 import { Session, User } from "lucia"
 import { ThemeToggle } from "../ThemeToggle"
+import { PrimaryBtn } from "../Buttons"
 
 export default  function HeaderContent({session}: {session: {
   user: User, session: Session
@@ -45,12 +46,12 @@ export default  function HeaderContent({session}: {session: {
             >
               Manga
             </Link>
-            <Link href="/test">Test</Link>
+            {/* <Link href="/test">Test</Link> */}
           </section>
           {!session.user?.id ? (
             <section className="flex gap-2">
               <Link href="/register">
-                <Button>Sign Up</Button>
+                <PrimaryBtn>Sign Up</PrimaryBtn>
               </Link>
               <Link href="/login">
                 <Button

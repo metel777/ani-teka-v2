@@ -28,6 +28,7 @@
     "@tanstack/react-table": "^8.17.0",
     "@types/better-sqlite3": "^7.6.10",
     "@uidotdev/usehooks": "^2.4.1",
+    "@vercel/postgres": "^0.9.0",
     "argon2": "^0.40.3",
     "better-sqlite3": "^10.1.0",
     "class-variance-authority": "^0.7.0",

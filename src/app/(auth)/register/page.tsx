@@ -1,14 +1,13 @@
 import { Title1 } from "@/components/Titles"
 import { RegisterForm } from "./RegisterForm"
+import AuthContainer from "@/components/Auth/AuthContainer"
 
 type Props = {}
 export default function page({}: Props) {
   return (
-    <main className="h-screen">
-      <section className=" m-auto mt-24 w-[300px]">
-        <Title1>Sign Up</Title1>
-        <RegisterForm />
-      </section>
-    </main>
+    <AuthContainer>
+      <Title1>Sign Up</Title1>
+      <RegisterForm />
+    </AuthContainer>
   )
 }

@@ -9,8 +9,7 @@ export default function TestPage({}) {
   
   return (
     <div className="flex h-screen items-center justify-center">
-          <Skeleton className="w-72 h-72" />
-
+        <PrimaryBtn>Test</PrimaryBtn>
     </div>
   )
 }

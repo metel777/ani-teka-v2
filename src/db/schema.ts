@@ -1,35 +1,33 @@
-import { int, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { text, integer, pgTable, timestamp } from 'drizzle-orm/pg-core'
+import { sql } from '@vercel/postgres'
+import { drizzle } from 'drizzle-orm/vercel-postgres';
 
-import { drizzle } from 'drizzle-orm/better-sqlite3';
-import Database from 'better-sqlite3';
+export const db = drizzle(sql);
 
-const sqlite = new Database('sqlite.db');
-export const db = drizzle(sqlite);
-
-export const users = sqliteTable('users', {
+export const users = pgTable('users', {
     id: text('id').notNull().primaryKey(),
     username: text('username'),
     email: text('email'),
     passwordHash: text('password_hash'),
 })
 
-export const userLists = sqliteTable('users_lists', {
+export const userLists = pgTable('users_lists', {
     userId: text('user_id').references(() => users.id),
     mediaType: text('media_type', { enum: ['anime', 'manga'] }),
-    media_id: int('media_id'),
+    media_id: integer('media_id'),
     list: text('list', { enum: ['planning', 'watching', 'paused', 'dropped', 'completed'] }).notNull(),
-    score: int('score'),
-    watchedEpisodes: int('watched_episodes')
+    score: integer('score'),
+    watchedEpisodes: integer('watched_episodes')
 })
 
-
-export const sessionsTable = sqliteTable("session", {
-    id: text("id").notNull().primaryKey(),
+export const sessionsTable = pgTable("session", {
+    id: text("id").primaryKey(),
     userId: text("user_id")
         .notNull()
         .references(() => users.id),
-    expiresAt: integer("expires_at").notNull(),
-    username: text("username"),
+    expiresAt: timestamp("expires_at", {
+        withTimezone: true,
+        mode: "date"
+    }).notNull()
 });
-
 
